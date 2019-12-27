@@ -1,0 +1,1568 @@
+﻿@charset "utf-8";
+
+/*************************************************************************/
+/** Description  : HTML player css **/
+/*************************************************************************/
+
+/* player index 값 정리 */
+/* z-index 관련 무의미한 99 나 999 등의 사용을 금지 */
+
+/*
+	video 1
+	엔딩크레딧 , 추천방송 , 모바일 백그라운드썸네일 5
+	추천방송 , 미리보기카운트다운 레이어  10
+	watermark 15
+	bg_gradient , 광고 영역 및 광고버튼 , 비디오 메인 썸네일 ,별별통계 그래프   19
+	버튼  ,  별별통계 구간 클릭 20
+	중앙버튼 25
+	툴팁 30
+	즐겨찾기 35
+    버퍼링 37  ( 50에서 블라인드 밑으로 내림 )
+    미리보기 모드시 (preview_mode)  player_info  39
+	블라인드 , 다음 비디오 40
+    라이브 알람  ,  방송정보 ,  smode 채팅출력버튼 41
+    별별통계 리스트 , 42
+	광고영역 관련 , 로딩  50
+	컨트롤바 강제 노출 51 ---- blind_ctrn_output , ctrl_output  클레스 추가   ( 이전 41 에서 변경 )
+	플레이어 하단 버튼들 , 비디오 별풍선 선물 레이어  52
+    무중단  55
+	비디오 구독 레이어 ( layer_originalbj ) 60
+*/
+
+/*
+    body에 추가되는 클레스 정리
+    ------------------------
+	smode  씨네마모드
+	extent_mode 전체화면 모드
+	video_mode 동영상풀레이어 모드
+	embeded_mode 퍼가기용 모드
+	mini_mode vod 시청페이지 축소모드
+*/
+
+/*
+    afreecatv_player 에 추가되는 클레스 정리
+    --------------------------------------
+    play_start 자동채생 차단관련 클레스 추가
+    currrent_blind 블라인드 상태일때
+    promotion 광고출력시 클리영역 및 관련 버튼 출력
+    video  VOD전용 클레스
+    mouseover  마우스 오버를 감지에서 엘리먼트들 출력
+    ctrl_output   컨트롤러 강제 출력
+    freecap   프리캡 스타일용
+    live_alert_on , live_alert_off 방송정보타이틀과 라이브 알림 영역의 겹침 해결을 위한 클레스
+
+
+
+*/
+
+/*
+*/
+body, ul, ol, li, dt, dl, dd, div, h1, h2, h3, h4, h5, h6, p, form, fieldset, blockquote, iframe, input, object, table, tr, th, td{margin:0;padding:0}
+
+body.ko_KR .player_item_list ul li button span { font-family: 'NG',AppleGothic; }
+html,body { height:100%; width: 100%; margin: 0; font-size:12px; }
+video::-webkit-media-controls-panel { display: none !important; }
+.blind {display: block; position: absolute; overflow: hidden; left: -9999px; width: 1px; height: 1px; font-size: 0; line-height: 0; text-indent: -9999px; }
+
+#afreecatv_player { position: relative; overflow: hidden; min-width: 460px; background: #000; max-height: 760px !important; margin: 0 !important; }
+
+#afreecatv_player button { outline: none; cursor: pointer; border: none; background-color: transparent; padding: 0;margin: 0;}
+#afreecatv_player .af_video,
+#afreecatv_player canvas,
+#afreecatv_player object,
+#afreecatv_player #video,
+#afreecatv_player #videoLayer { position: absolute !important ; top: 0; left: 0; right: 0; bottom: 0; z-index: 1; width: 100% !important; height: 100% !important; background-color: #000; padding: 0 !important;}
+
+/* 광고영역 미니모드 수정을 위한 CSS 수정 */
+#__DAWIN3_OVERLAY__ { width: 100% !important; height: 100% !important; }
+
+/* 개발용 vod 클릭을 위한 엘리먼트 컨트롤  */
+#videoLayerCover { outline: none; -ms-user-select:none }
+#videoLayerCover::-ms-selection ,
+#videoLayerCover::-webkit-selection ,
+#videoLayerCover::selection { background-color: transparent; }
+
+/*#afreecatv_player .afreecatv_player_size { max-height: 760px;}*/
+#afreecatv_player .afreecatv_player_size {padding-top: 56.25%; max-height: 760px; height: 0; }
+
+/* 백그라운드 */
+#afreecatv_player .bg_gradient {z-index: 19; position: absolute; left: 0; right: 0; bottom: -80px; width: 100%; height: 80px; background: -webkit-linear-gradient(rgba(0, 0, 0, .0), rgba(0, 0, 0, .7)); background: -o-linear-gradient(rgba(0, 0, 0, .0), rgba(0, 0, 0, .7)); background: linear-gradient(rgba(0, 0, 0, .0), rgba(0, 0, 0, .7)); -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#00000000, endColorstr=#99000000)"; }
+
+
+/*이미지 공통*/
+#afreecatv_player .play,
+#afreecatv_player .stop,
+#afreecatv_player .pause,
+#afreecatv_player .sound,
+#afreecatv_player .sound span,
+#afreecatv_player .btn_smode,
+#afreecatv_player .btn_extend_mode,
+#afreecatv_player .btn_share,
+#afreecatv_player .btn_afreecatv,
+#afreecatv_player .bnt_next_play ,
+#afreecatv_player .btn_chat ,
+#afreecatv_player .btn_refresh ,
+#afreecatv_player .btn_setting ,
+#afreecatv_player .setting_box div a ,
+#afreecatv_player .setting_box .btn_player_select em,
+#afreecatv_player .progress .progress_track .handler span,
+#afreecatv_player .center_btn,
+#afreecatv_player .center_btn span ,
+#afreecatv_player .video_blind .content .type_adult .btn_adult_play button ,
+#afreecatv_player .right_ctrl .edit_angle_box > button em ,
+#afreecatv_player .btn_statistics em ,
+#afreecatv_player .statistics_list .close,
+#afreecatv_player .player_ctrlBox .live_state,
+#afreecatv_player .graph_wrap .close ,
+#afreecatv_player .player_info .title span em,
+#afreecatv_player .player_info .title > a ,
+#afreecatv_player .right_ctrl .setting_box .setting_list button em ,
+#afreecatv_player .right_ctrl .setting_box .setting_list a em,
+#afreecatv_player .center_btn .volume_icon span { background-image: url('../../../images/afreecatv_player/split_player.png'); background-repeat: no-repeat;}
+
+/*  css3 이펙트 공통 */
+/* { -webkit-transition: all 0.2s ease; -moz-transition: all 0.2s ease; -o-transition: all 0.2s ease; transition: all 0.2s ease;} */
+
+
+/* ************** */
+/* 플레이어 타이틀 정보    , 임베트 타이틀에서 확장 */
+#afreecatv_player .player_title {  display: none; position: absolute; top: -60px; left: 0; right: 0; z-index: 20; height: 65px; padding-top: 15px; margin: 0; color: #fff; font-size: 15px; font-family: 'NG' , AppleGothic ; font-weight: normal; text-indent: 10px; line-height: 1; background: -webkit-linear-gradient(rgba(0, 0, 0, .7), rgba(0, 0, 0, 0)); background: -o-linear-gradient(rgba(0, 0, 0, .7), rgba(0, 0, 0,0)); background: linear-gradient(rgba(0, 0, 0, .7), rgba(0, 0, 0,0)); filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#00000000); -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#00000000)"; }
+#afreecatv_player .player_title span{ display: block; overflow: hidden;  text-overflow: ellipsis; white-space: nowrap;  margin:0 150px 0 15px; font-size: 16px; color:#fff; padding-top: 1px; font-family: 'NG' , AppleGothic ; }
+#afreecatv_player .player_title strong { display: block;position: absolute; overflow: hidden;  text-overflow: ellipsis; white-space: nowrap; max-width: 150px; right: 20px; top: 15px; color:#328fde; font-size: 14px; padding-top: 1px; font-family: 'NG' , AppleGothic ;}
+
+#afreecatv_player .player_info {  display: none; position: absolute; top: -100%; left: 0; right: 0; z-index: 41; height: auto; margin: 0; color: #fff; font-size: 15px; font-family: 'NG' , AppleGothic ; font-weight: normal; line-height: 1.2; letter-spacing: -1px;    -webkit-transition: all 0.3s ease; -moz-transition: all 0.3s ease; -o-transition: all 0.3s ease; transition: all 0.3s ease;
+    background: -webkit-linear-gradient(rgba(0, 0, 0, .8) , rgba(0, 0, 0, 0) );
+    background: -o-linear-gradient(rgba(0, 0, 0, .8) , rgba(0, 0, 0,0) );
+    background: linear-gradient(rgba(0, 0, 0, .8) , rgba(0, 0, 0,0) );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=cc000000, endColorstr=00000000);
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=cc000000, endColorstr=00000000)"; }
+#afreecatv_player.live_alert_on .player_info { padding-left: 228px; }
+#afreecatv_player .player_info .title {position: relative; padding: 20px 20px 50px; z-index: auto;   -webkit-transition: all 0.3s ease; -moz-transition: all 0.3s ease; -o-transition: all 0.3s ease; transition: all 0.3s ease; }
+/*#afreecatv_player .player_info .title h1 { line-height: normal; text-shadow: 0 0 2px rgba(0,0,0,.3), 0 0 1px rgba(0,0,0,.1);  font-size: 26px; color: #fff;}*/
+#afreecatv_player .player_info .title h1{overflow: hidden;  text-overflow: ellipsis; white-space: nowrap;  font-size: 26px; color: #fff; font-weight: bold; letter-spacing: -1px; line-height: normal; font-family: 'NG' , AppleGothic ;}
+#afreecatv_player .player_info .title h1 a { display: block; color: #fff; text-overflow: ellipsis; white-space: nowrap; font-size: 26px;  }
+#afreecatv_player .player_info .title div { margin-bottom: 8px; }
+#afreecatv_player .player_info .title div span {overflow: hidden; position: relative; display: inline-block; opacity: .8; color:#fff; line-height: 1.2; font-size: 15px; font-family: 'NG' , AppleGothic ; vertical-align: top;}
+#afreecatv_player .player_info .title div span:first-child { overflow: visible; margin-right: 20px; }
+#afreecatv_player .player_info .title div span + span { padding-left: 26px; }
+#afreecatv_player.video .player_info .title div span + span { padding-left: 18px; }
+#afreecatv_player .player_info .title div span em  { position: absolute; left: 0; top: 50%; margin-top: -7px; display: inline-block; width: 18px; height: 13px; margin-right: 8px; opacity: .8;  background-position: -60px -190px; vertical-align: -1px}
+#afreecatv_player.video .player_info .title div span em { width: 10px; background-position: -80px -190px;  }
+#afreecatv_player .player_info .title h1 a { display: block; color: #fff; text-overflow: ellipsis; white-space: nowrap; font-size: 26px;  }
+#afreecatv_player .player_info .title > a { overflow: hidden; display: none; overflow: hidden; position: absolute; top:20px; right: 20px; width: 96px; height: 17px; text-indent: -9999em; background-position: -100px -190px; }
+@media screen and (-webkit-min-device-pixel-ratio:0) { #afreecatv_player .player_info .title h1 { font-weight: normal; } }
+@-moz-document url-prefix() { #afreecatv_player .player_info .title h1 { font-weight: normal; } }
+
+#afreecatv_player.mouseover .player_info { top: 0; }
+#afreecatv_player.live_alert_on .player_info .title { }
+#afreecatv_player.live_alert_off .player_info .title { }
+.embeded_mode #afreecatv_player .player_info .title a { display: block; }
+.smode #afreecatv_player .player_info ,
+.extend_mode #afreecatv_player .player_info ,
+.embeded_mode #afreecatv_player .player_info ,
+.smode #afreecatv_player .player_info .title,
+.extend_mode #afreecatv_player .player_info .title,
+.embeded_mode #afreecatv_player .player_info .title { display: block; }
+
+
+/* 탐방사절 z-index 30     player_info   배포 후  tuneout css     ,  player_info  하위로 정리 필요   ex) .player_info .tuneout   */
+#afreecatv_player .tuneout { position: absolute; z-index: 30; top: -40px; left: 0; right: 0; background-color: rgba(24,64,120,.8)}
+#afreecatv_player .player_info .tuneout { display: none; position: static; z-index: auto; }
+#afreecatv_player.video .player_info .tuneout { display: none !important; }
+#afreecatv_player .tuneout p { cursor: default;; padding: 7px; margin: 0; font-size: 18px; color: #fff; text-align: center; line-height: 1.2; font-family: 'NG' , AppleGothic ; -ms-user-select: none; -moz-user-select: -moz-none; -khtml-user-select: none; -webkit-user-select: none; user-select: none; text-shadow: 0 0 2px rgba(0,0,0,.3), 0 0 1px rgba(0,0,0,0.2); }
+@media (max-width: 857px) {
+    #afreecatv_player .tuneout p { font-size: 14px; }
+    #afreecatv_player .player_info .title { padding: 18px 10px 40px; }
+    #afreecatv_player .player_info .title h1 { font-size: 18px; }
+    #afreecatv_player .player_info .title div span { font-size: 14px; }
+}
+.mini_mode #afreecatv_player .player_info { display: none; }
+.mini_mode #afreecatv_player .tuneout p { font-size: 11px; }
+
+
+
+
+
+/* ******************** */
+/* ******watermark***** */
+#afreecatv_player .watermark span,
+#afreecatv_player .watermark { overflow: hidden; position: absolute; display: none; z-index: 15; padding-left: 160px; height: 34px; text-indent: -9999em; font: 0/0 a; background: transparent url('../../../images/afreecatv_player/split_player.png') no-repeat 0 -150px ; }
+#afreecatv_player .watermark.opacity { opacity: .8;filter: alpha(opacity=80);-moz-opacity: 0.8;}
+#afreecatv_player .watermark.tl, #afreecatv_player .watermark.tc, #afreecatv_player .watermark.tr, #afreecatv_player .watermark.bl, #afreecatv_player .watermark.bc, #afreecatv_player .watermark.br {display: block;}
+#afreecatv_player .watermark.tl { top: 9px; left: 12px; }
+#afreecatv_player .watermark.tc { top: 9px; left: 50%; margin-left: -77.5px; }
+#afreecatv_player .watermark.tr { top: 9px; right: 12px; }
+#afreecatv_player .watermark.bl { bottom: 9px; left: 12px; }
+#afreecatv_player .watermark.bc { bottom: 9px; left: 50%; margin-left: -77.5px; }
+#afreecatv_player .watermark.br { bottom: 9px; right: 12px; }
+#afreecatv_player .watermark span { position: relative; display:inline-block; height:24px; padding: 0;  }
+#afreecatv_player .watermark.ic_adult.bc,
+#afreecatv_player .watermark.ic_adult.tc{margin-left:-92.5px}
+#afreecatv_player .watermark.ic_adult span{ width:24px; background-position:0 -187px; margin-top:5px; }
+#afreecatv_player .watermark.ic_pw.bc,
+#afreecatv_player .watermark.ic_pw.tc{margin-left:-89px}
+#afreecatv_player .watermark.ic_pw span { width:17px; background-position:-34px -187px; margin-top:6px; }
+#afreecatv_player .watermark.ic_adult.ic_pw.bc,
+#afreecatv_player .watermark.ic_adult.ic_pw.tc { margin-left:-106px; }
+#afreecatv_player .watermark.ic_adult.ic_pw span { width:51px; background-position:0 -187px;}
+
+#afreecatv_player .watermark.bj_award2018 { padding-left: 170px; background: transparent url('../../../images/afreecatv_player/watermark_bjaward.png') no-repeat 0 0px; }
+#afreecatv_player .watermark.bj_award2018 span { position: static; margin-top: 3px; }
+
+
+/* 기본 중앙 로고 */
+.default_logo { overflow: hidden; position:  absolute; z-index: 0; top: 0; right: 0;bottom: 0;left: 0; background: #000 url('../../../images/afreecatv_player/player_default_logo.png') no-repeat center ; text-indent: -9999em; }
+.default_logo.on { z-index: 2; }
+
+
+/* ********************** */
+/* ******** 컨트롤 ****** */
+#afreecatv_player .player_ctrlBox { position: absolute; bottom: -120px; left: 0; right: 0; z-index: 20; clear: both; height: auto; max-height: 148px;  min-height: 50px; background-image: url('../../../images/afreecatv_player/ctrl_gradation.png'); background-position: bottom; background-repeat: repeat-x; outline: none; }
+#afreecatv_player .player_ctrlBox .ctrl { position: relative; margin: 20px 20px 0; min-height: 30px; }
+#afreecatv_player .player_ctrlBox .ctrl::after { content:''; display: block; clear:both; }
+
+/****************************/
+/* *****  플레이버튼 *****  */
+/* #afreecatv_player .player_ctrlBox .ctrl > button { -webkit-transition: all 0.3s ease; -moz-transition: all 0.3s ease; -o-transition: all 0.3s ease; transition: all 0.3s ease;} */
+
+#afreecatv_player .player_ctrlBox .play,
+#afreecatv_player .player_ctrlBox .stop,
+#afreecatv_player .player_ctrlBox .pause,
+#afreecatv_player .player_ctrlBox .bnt_next_play ,
+#afreecatv_player .player_ctrlBox .btn_refresh { position: relative; overflow: hidden; float: left;   margin:5px 15px 0 0; }
+#afreecatv_player .player_ctrlBox .play{width: 15px; height: 15px;background-position: 1px 0; }
+#afreecatv_player .player_ctrlBox .stop{ width: 15px; height: 15px; background-position: -25px 1px; }
+#afreecatv_player .player_ctrlBox .pause{ width: 11px; margin-right: 19px; height: 15px; background-position: -400px 1px; }
+#afreecatv_player .player_ctrlBox .bnt_next_play { display: none; width: 13px; height: 15px; background-position: -350px 0px; }
+#afreecatv_player .player_ctrlBox .btn_refresh { display: none; width: 12px; height: 15px; background-position: -375px 0px; }
+#afreecatv_player .player_ctrlBox .play:hover {background-position: 1px -25px;}
+#afreecatv_player .player_ctrlBox .stop:hover {background-position: -25px -24px;}
+#afreecatv_player .player_ctrlBox .pause:hover {background-position: -400px -24px;}
+#afreecatv_player .player_ctrlBox .bnt_next_play:hover { background-position: -350px -25px; }
+#afreecatv_player .player_ctrlBox .btn_refresh:hover { background-position: -375px -25px; }
+
+#afreecatv_player.current_blind .player_ctrlBox { z-index: 51; bottom: 0 !important; }
+#afreecatv_player.current_blind .player_ctrlBox .progress ,
+#afreecatv_player.current_blind .player_ctrlBox .pause ,
+#afreecatv_player.current_blind .player_ctrlBox .stop ,
+#afreecatv_player.current_blind .player_ctrlBox .play ,
+#afreecatv_player.current_blind .player_ctrlBox .volume ,
+#afreecatv_player.current_blind .player_ctrlBox .live_state ,
+#afreecatv_player.current_blind .player_ctrlBox .btn_statistics ,
+#afreecatv_player.current_blind .player_ctrlBox .time_display ,
+#afreecatv_player.current_blind .player_ctrlBox .setting_box ,
+#afreecatv_player.current_blind .player_ctrlBox .quality_box { display: none !important; }
+
+
+/****************************/
+/* ******  음량버튼 ******  */
+#afreecatv_player .player_ctrlBox .volume {height: 25px; padding: 5px 5px 0 0; float: left; overflow: hidden; min-width: 20px; -webkit-transition: all 0.4s ease; -moz-transition: all 0.4s ease; -o-transition: all 0.4s ease; transition: all 0.4s ease;}
+#afreecatv_player .player_ctrlBox .volume .sound { position: relative; float: left; width: 20px; height: 15px; margin-right: 8px; background-position: -50px 0; }
+#afreecatv_player .player_ctrlBox .volume .sound span {position: absolute; display: block; right: 3px; top: 1px; width: 4px; height: 15px; background-position: -71px -50px; }
+#afreecatv_player .player_ctrlBox .volume .sound span:first-child {background-position: -62px -50px; right: 6px;}
+#afreecatv_player .player_ctrlBox .volume .sound.mute span {right: 3px !important; width: 6px; background-position: -50px -50px !important; }
+#afreecatv_player .player_ctrlBox .volume:hover .sound {background-position: -50px -25px;}
+#afreecatv_player .player_ctrlBox .volume:hover .sound span { background-position: -71px -75px; }
+#afreecatv_player .player_ctrlBox .volume:hover .sound span:first-child { background-position: -62px -75px; }
+#afreecatv_player .player_ctrlBox .volume:hover .sound.mute span { right: 3px !important; width: 6px; background-position: -50px -75px !important;}
+
+#afreecatv_player .player_ctrlBox .volume .sound.small span {background-position: -62px -50px; right: 6px;}
+#afreecatv_player .player_ctrlBox .volume:hover .small span { background-position: -62px -75px; right: 6px;}
+
+/****************************/
+/* ******  음량조절 ******  */
+#afreecatv_player .player_ctrlBox .volume .volume_slider_wrap {  position: relative; float: left; overflow: visible; height: 25px; cursor: pointer; }
+#afreecatv_player .player_ctrlBox .volume .volume_slider { cursor: pointer; position: relative; float: left; margin: 6px 0 0 -100px;  height: 3px; width: 70px; background-color: rgb(150,150,150); -webkit-border-radius: 2px; -moz-border-radius: 2px; border-radius: 2px; opacity: 0; -moz-opacity: 0; filter: alpha(opacity=0); -webkit-transition: all 0.4s ease; -moz-transition: all 0.4s ease; -o-transition: all 0.4s ease; transition: all 0.4s ease; }
+#afreecatv_player .player_ctrlBox .volume.bar_show .volume_slider { margin-left: 0px; opacity: 1; -moz-opacity: 1; filter: alpha(opacity=100);}
+#afreecatv_player .player_ctrlBox .volume .volume_range { position: absolute; top: 0; left: 0; height: 3px; background-color: #2cc6ff; text-indent: -9999em; -webkit-border-radius: 1.5px; -moz-border-radius: 1.5px; border-radius: 1.5px; width: auto; }
+#afreecatv_player .player_ctrlBox .volume .volume_handler { position: absolute;  top: -3px; margin-left: -4.5px; width: 9px; height: 9px; background: url('../../../images/afreecatv_player/split_player.png') no-repeat 0 -74px; }
+
+
+/****************************/
+/* ***** 타임디스플레이 **** */
+#afreecatv_player .player_ctrlBox .time_display { display: none; float: left; font-size: 12px; color:#fff; margin: 6px 0 0 5px; line-height: 1.3;}
+#afreecatv_player .player_ctrlBox .time_display .time-current { color:#2cc6ff; padding-right: 5px; }
+#afreecatv_player .player_ctrlBox .time_display .time-duration { padding-left: 3px; }
+
+
+/***************************************/
+/* ***** 타임머신 라이브 상태 표시 ***** */
+#afreecatv_player.video .player_ctrlBox .live_state { display: none; }
+#afreecatv_player .player_ctrlBox .live_state { float: left; position: relative; font-size: 12px; color: #fff; width: 38px; height: 14px; margin: 6px 0 0 5px; padding-left: 11px; font-family: 'NG',AppleGothic,sans-serif; letter-spacing: 1px; background-position: -52px -218px; }
+#afreecatv_player .player_ctrlBox .live_state em { display: none; position: absolute; left: 0; top: 50%; margin-top: -2.5px;  width: 5px; height: 5px; border-radius: 2.5px;  background-color: #fff; opacity:.5; filter: alpha(opacity=50);-moz-opacity: .5; }
+#afreecatv_player .player_ctrlBox .live_state span { display: none; }
+#afreecatv_player .player_ctrlBox .live_state.on { opacity:1; filter: alpha(opacity=100);-moz-opacity:1; cursor: default; background-position: 1px -218px;}
+#afreecatv_player .player_ctrlBox .live_state.on em { opacity:1; filter: alpha(opacity=100);-moz-opacity:1; background-color: #ff2830; box-shadow: 0 0 3px rgba(255,40,48,1)}
+.en_US #afreecatv_player .player_ctrlBox .live_state em { margin-top: -3px; }
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    #afreecatv_player .player_ctrlBox .live_state em  { margin-top: -1.5px;}
+    .en_US #afreecatv_player .player_ctrlBox .live_state em { margin-top: -2px; }
+}
+@-moz-document url-prefix() {
+    #afreecatv_player .player_ctrlBox .live_state em { margin-top: -1.5px;}
+    .en_US #afreecatv_player .player_ctrlBox .live_state em { margin-top: -2px; }
+}
+/************************/
+/************************/
+/** 컨트롤바 우측 버튼 **/
+#afreecatv_player .right_ctrl { position: absolute; z-index: 6; bottom: 10px;right: 20px; color: #fff; }
+#afreecatv_player .right_ctrl .btn_setting,
+#afreecatv_player .right_ctrl .quality_box,
+#afreecatv_player .btn_smode,
+#afreecatv_player .btn_extend_mode,
+#afreecatv_player .btn_afreecatv,
+#afreecatv_player .btn_share,
+#afreecatv_player .btn_chat {float: left; height: 15px; margin-left: 15px;}
+/* ******  화질     ******  */
+#afreecatv_player .right_ctrl .quality_box { position: relative;  min-width: 68px; line-height: 1.2;}
+#afreecatv_player .right_ctrl .quality_box button { top: 0; z-index: 2; display: block; width: 100%; height: 100%;  margin:0; padding: 0; color: #fff; font-size: 12px; opacity: 0.9; -moz-opacity: 0.9; filter: alpha(opacity=90); }
+#afreecatv_player .right_ctrl .quality_box button span { position: relative; display: inline-block; height: 15px; vertical-align: top; line-height:14px;  padding-right: 8px; color: #fff; background-repeat:  no-repeat;  *padding-bottom: 3px;}
+#afreecatv_player .right_ctrl .quality_box > button span:before {content:''; display: block; position: absolute; right: 0; top: 50%; margin-top: -1px; width: 0; height: 0; border-bottom: 3px solid #fff; border-left: 3px solid transparent;border-right: 3px solid transparent; }
+#afreecatv_player .right_ctrl .quality_box > button:hover span:before { border-bottom-color: #2cc6ff; }
+@media screen and (-webkit-min-device-pixel-ratio:0) { #afreecatv_player .right_ctrl .quality_box button span { line-height:16px;} }
+@-moz-document url-prefix() { #afreecatv_player .right_ctrl .quality_box button span { line-height:1.2;} }
+#afreecatv_player .right_ctrl .quality_box button:hover span {  color:#2cc6ff; background-position: right -19px; *background-position:  right -18px; }
+#afreecatv_player .right_ctrl .quality_box ul {overflow: hidden; position: absolute; z-index: 1; bottom: 24px; margin: 0; padding: 0;  width: 100%;   height: 0;
+  opacity: 0; -moz-opacity: 0;
+  list-style: none; background: url('../../../images/afreecatv_player/transparent_0.7.png') repeat;
+  -webkit-transition: all 0.3s ease; -moz-transition: all 0.3s ease; -o-transition: all 0.3s ease; transition: all 0.3s ease;  }
+#afreecatv_player .right_ctrl .quality_box ul li {height: 30px;}
+#afreecatv_player .right_ctrl .quality_box ul li button { display: block; width: 100%; margin: 0; vertical-align: middle; }
+#afreecatv_player .right_ctrl .quality_box ul li button span { *display: block;  padding: 0; *padding-top: 8px; *height: 22px; background: none !important; line-height: 1.4;}
+#afreecatv_player.mouseover .right_ctrl .quality_box.on ul { overflow: hidden; height: auto; bottom: 24px; opacity: 1; -moz-opacity: 1;}
+#afreecatv_player .right_ctrl .quality_box.off { opacity:.5; filter: alpha(opacity=50);-moz-opacity: .5; }
+#afreecatv_player .right_ctrl .quality_box.off button{ cursor: default;}
+#afreecatv_player .right_ctrl .quality_box.off button:hover span { color: #fff; background-position:  right 6px;  }
+#afreecatv_player .right_ctrl .quality_box.off ul { height: 0;  opacity: 0; -moz-opacity: 0; }
+/* ******  플레이어 타입 관련 셋팅버튼 *********  */
+#afreecatv_player .right_ctrl .setting_box { position: relative; float: left; width: 15px; height: 15px; *margin-top: 2px; margin-left: 15px; opacity:1; filter: alpha(opacity=100);-moz-opacity: 1; }
+#afreecatv_player .right_ctrl .setting_box.off { opacity:.5; filter: alpha(opacity=50);-moz-opacity: .5; }
+#afreecatv_player .right_ctrl .setting_box .btn_setting { width: 15px; margin: 0; text-indent: -9999em; font-size: 0; color: transparent; background-position:-425px -50px ; }
+#afreecatv_player .right_ctrl .setting_box.off .btn_setting {cursor: default;}
+#afreecatv_player .right_ctrl .setting_box .btn_setting:hover { background-position:-425px -75px ;}
+#afreecatv_player .right_ctrl .setting_box.off .btn_setting:hover{ -webkit-animation-name: none; animation-name: none; background-position:-425px -50px ; }
+#afreecatv_player .right_ctrl .setting_box.off div { display: none !important; }
+#afreecatv_player.mouseover .right_ctrl .setting_box div { display: none;}
+#afreecatv_player .right_ctrl .setting_box div { position: absolute; display: none; right: 0; bottom: 30px; min-width: 150px; padding:10px; min-height: 45px; background: url('../../../images/afreecatv_player/transparent_0.7.png') repeat; }
+#afreecatv_player .right_ctrl .setting_box .tooltip { right: auto;}
+#afreecatv_player .right_ctrl .setting_box div strong { float: left; font-size: 12px; color: #fff;  font-weight: normal; line-height: 1.6; opacity:.8; filter: alpha(opacity=80);-moz-opacity: .8; filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#cc000000, endColorstr=#cc000000); -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#cc000000, endColorstr=#cc000000)"; }
+@media screen and (-webkit-min-device-pixel-ratio:0) { #afreecatv_player .right_ctrl .setting_box div strong{ line-height: 1.2; } }
+@-moz-document url-prefix() { #afreecatv_player .right_ctrl .setting_box div strong{ line-height: 1.2; } }
+#afreecatv_player .right_ctrl .setting_box div a {overflow: hidden; float: left; width: 13px; height: 13px; margin-left: 3px;  text-indent: -9999em; background-position:-400px -50px ;}
+#afreecatv_player .right_ctrl .setting_box div a:hover { background-position:-400px -75px; }
+#afreecatv_player .right_ctrl .setting_box div p { clear:both; line-height: 1.2; padding-top: 5px; margin: 0; *margin-top: -10px; font-size: 11px; color:#aaa9a9; letter-spacing: -1px; opacity:.8; filter: alpha(opacity=80);-moz-opacity: .8; }
+#afreecatv_player .right_ctrl .setting_box div ul { position: absolute; left: 100%; top: 0; margin: 0; padding: 0; list-style: none; background: url('../../../images/afreecatv_player/transparent_0.7.png') repeat; }
+#afreecatv_player .right_ctrl .setting_box div ul li { width: 60px; height: 27px;}
+#afreecatv_player .right_ctrl .setting_box div ul li button { width: 100%; height: 27px; font-size: 12px; color:#fff; line-height: 1.6;  }
+#afreecatv_player .right_ctrl .setting_box div ul li button.on,
+#afreecatv_player .right_ctrl .setting_box div ul li button:hover { color:#2cc6ff; }
+#afreecatv_player .right_ctrl .setting_box .btn_player_select { position: absolute; top: 10px; *top: 8px; right: 10px; max-width: 50px; padding-right: 7px; font-size: 12px; line-height: 1.6;color: #2bc6ff;}
+#afreecatv_player .right_ctrl .setting_box .btn_player_select em { position: absolute; top: 5px; right: 0; display: block; width: 5px; height: 8px; background-position:-400px -100px;}
+#afreecatv_player .right_ctrl .setting_box .btn_setting:hover div.tooltip { display: block !important;}
+#afreecatv_player .right_ctrl .setting_box .btn_setting div.tooltip ,
+#afreecatv_player .right_ctrl .setting_box.on .btn_setting div.tooltip ,
+#afreecatv_player .right_ctrl .setting_box.on .btn_setting:hover div.tooltip { display: none !important; }
+
+#afreecatv_player .right_ctrl .setting_box .play_speed { min-height: 15px; width: auto; min-width: 100px; }
+#afreecatv_player .right_ctrl .setting_box .play_speed ul { top: auto; bottom: 0; }
+#afreecatv_player .right_ctrl .setting_box .play_speed strong { padding-right: 20px; }
+
+#afreecatv_player .right_ctrl .setting_box .setting_list ,
+#afreecatv_player .right_ctrl .setting_box .setting_list > ul,
+#afreecatv_player .right_ctrl .setting_box .setting_list > div ,
+#afreecatv_player .right_ctrl .setting_box .setting_list ul li button ,
+#afreecatv_player .right_ctrl .setting_box .setting_list ul li a { -webkit-transition: all 0.4s ease; -moz-transition: all 0.4s ease; -o-transition: all 0.4s ease; transition: all 0.4s ease; }
+#afreecatv_player .right_ctrl .setting_box .setting_list {overflow: hidden; position: absolute; display: none; right: -30px; bottom: 30px; padding: 0; min-width: auto; min-height: auto; background: url('../../../images/afreecatv_player/transparent_0.7.png') repeat; }
+#afreecatv_player .right_ctrl .setting_box .setting_list > ul { position: relative; left: 0; bottom: 0; padding: 5px 10px; background: transparent; min-width: 150px; }
+#afreecatv_player .right_ctrl .setting_box .setting_list > ul li { position: relative; width: auto;  color: #fff; font-size: 12px; height: auto; }
+#afreecatv_player .right_ctrl .setting_box .setting_list > ul li span { position: relative; display: block; line-height: 25px;}
+#afreecatv_player .right_ctrl .setting_box .setting_list > ul li button { position: absolute; top: 0; right: 0; padding-right: 8px; line-height: 23px; width: auto; height: auto; }
+#afreecatv_player .right_ctrl .setting_box .setting_list > ul li button em { position: absolute; top: 50%; right: 0; margin-top: -4px; display: block;  width: 5px; height: 8px; background-position:-408px -100px;}
+#afreecatv_player .right_ctrl .setting_box .setting_list > ul li button:hover em { background-position:-400px -100px; }
+#afreecatv_player .right_ctrl .setting_box .setting_list div ul { position: static; background: none; text-align: left; }
+#afreecatv_player .right_ctrl .setting_box .setting_list div ul li { width: auto; height: auto; }
+#afreecatv_player .right_ctrl .setting_box .setting_list div ul li button { position: relative; text-align: left; padding-right: 10px; white-space: pre; }
+#afreecatv_player .right_ctrl .setting_box .setting_list div ul li button.on em ,
+#afreecatv_player .right_ctrl .setting_box .setting_list div ul li button:hover em { position: absolute; right: 0; top: 50%; margin-top: -4.5px; width: 8px; height: 7px; background-position:-385px -100px; }
+#afreecatv_player .right_ctrl .setting_box .setting_list div a { position: relative; float:none; display: block; width: auto; height: auto; text-indent: 0; margin: 0 -10px; padding: 3px 10px 0 20px; line-height: 22px; border-bottom: 1px solid #5e5e5e; cursor: pointer; background-image: none; color: #fff; text-align: left; text-decoration: none;}
+#afreecatv_player .right_ctrl .setting_box .setting_list div a em { position: absolute; left: 10px;top: 50%; margin-top: -3px; width: 5px; height: 8px; background-position: -408px -110px; }
+#afreecatv_player .right_ctrl .setting_box .setting_list div a:hover { color:#2cc6ff; }
+#afreecatv_player .right_ctrl .setting_box .setting_list div a:hover em { background-position: -400px -110px; }
+#afreecatv_player .right_ctrl .setting_box .setting_list .speed ,
+#afreecatv_player .right_ctrl .setting_box .setting_list .quality ,
+#afreecatv_player .right_ctrl .setting_box .setting_list .playertype { display: block; position: absolute; left: 100%; right: auto; bottom: 0; min-width: 60px; padding:0 10px; text-align: center; opacity: 0;  filter: alpha(opacity=000); -moz-opacity: 0; background: none; }
+#afreecatv_player .right_ctrl .setting_box .setting_list .quality { min-width: 85px; }
+#afreecatv_player .right_ctrl .setting_box .list > ul ul { position: static; }
+#afreecatv_player .right_ctrl .setting_box .setting_list.quality_on > ul ,
+#afreecatv_player .right_ctrl .setting_box .setting_list.speed_on > ul ,
+#afreecatv_player .right_ctrl .setting_box .setting_list.playertype_on > ul {  position: absolute; left: -100%; opacity: 0; }
+#afreecatv_player .right_ctrl .setting_box .setting_list.quality_on .quality ,
+#afreecatv_player .right_ctrl .setting_box .setting_list.speed_on .speed ,
+#afreecatv_player .right_ctrl .setting_box .setting_list.playertype_on .playertype { position: relative; left: 0; opacity: 1; height: auto; z-index: auto; }
+#afreecatv_player .right_ctrl .setting_box .setting_list.speed_on ,
+#afreecatv_player .right_ctrl .setting_box .setting_list.quality_on ,
+#afreecatv_player .right_ctrl .setting_box .setting_list.playertype_on { right: -30px; }
+#afreecatv_player .right_ctrl .setting_box .setting_list.speed_on { width: 80px; height: 186px; }
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    #afreecatv_player .right_ctrl .setting_box .btn_player_select {top: 8px;}
+    #afreecatv_player .right_ctrl .setting_box .setting_list > ul li button { line-height: 25px; }
+    #afreecatv_player .right_ctrl .setting_box .setting_list div a em { margin-top: -4px; }
+}
+@-moz-document url-prefix() {
+    #afreecatv_player .right_ctrl .setting_box .btn_player_select {top: 8px;}
+    #afreecatv_player .right_ctrl .setting_box .btn_player_select em { top: 7px; }
+    #afreecatv_player .right_ctrl .setting_box .setting_list > ul li button { line-height: 25px; }
+    #afreecatv_player .right_ctrl .setting_box .setting_list div a em { margin-top: -4px; }
+}
+
+
+
+/* ********************************* */
+/* ********************************* */
+/* 편집각 */
+#afreecatv_player .right_ctrl .edit_angle_box { display: none; float: left; height: 19px; margin: 0 0 0 15px; opacity: 1; }
+#afreecatv_player .right_ctrl .edit_angle_box > button { overflow: hidden; position: relative; display: block; height: 19px; margin-top: -2px; padding-right: 15px; color: #fff; opacity: .9; font-size: 12px;}
+#afreecatv_player .right_ctrl .edit_angle_box > button:after { content:''; position: absolute; right: 0; top: 4px; width: 1px; height: 11px; background-color: #636469; }
+#afreecatv_player .right_ctrl .edit_angle_box > button em { position: relative; display: inline-block; width: 19px; height: 19px; margin:0 4px 0 0; background-position: -375px -120px; }
+#afreecatv_player .right_ctrl .edit_angle_box > button span { position: relative; vertical-align: 5px;}
+#afreecatv_player .right_ctrl .edit_angle_box > button:hover { color: #11a3ff; }
+#afreecatv_player .right_ctrl .edit_angle_box > button:hover em { background-position: -375px -145px;  }
+#afreecatv_player .right_ctrl .edit_angle_box .edit_angle_layer { display: none; overflow: hidden; position: absolute; z-index: -1; opacity: 0; bottom: 45px; right: 0px; min-width: 250px; max-height: 180px; padding: 0; margin: 0; overflow-y: auto;  background: url('../../../images/afreecatv_player/transparent_0.7.png') repeat; font-size: 13px; list-style:none;  }
+#afreecatv_player .right_ctrl .edit_angle_box .edit_angle_layer.bj { min-width: 358px; }
+#afreecatv_player .right_ctrl .edit_angle_box .edit_angle_layer li { border-top: 1px solid #2f292f; border-bottom: 1px solid transparent; padding: 8px; cursor: pointer;}
+#afreecatv_player .right_ctrl .edit_angle_box .edit_angle_layer li:first-child { border-top: 0; }
+#afreecatv_player .right_ctrl .edit_angle_box .edit_angle_layer li div { color: #fff; }
+#afreecatv_player .right_ctrl .edit_angle_box .edit_angle_layer li div span { position: relative; display: inline-block; min-width: 120px;}
+#afreecatv_player .right_ctrl .edit_angle_box .edit_angle_layer li div span:first-child {  min-width: auto; padding-right: 12px; margin-right: 12px; }
+#afreecatv_player .right_ctrl .edit_angle_box .edit_angle_layer li div span:first-child:after { content:''; position: absolute; right: 0; top: 0; width: 1px;height: 12px; background-color: #2a2b34; }
+#afreecatv_player .right_ctrl .edit_angle_box .edit_angle_layer li div span em { display: inline-block; margin: -3px 0 -2px 5px; padding: 3px 6px 1px; font-size: 14px; color: #50d8ff;  border: 1px solid #50d8ff; border-radius: 9px; }
+#afreecatv_player .right_ctrl .edit_angle_box .edit_angle_layer li button { display: none; float: right; margin-top: -2px; padding: 2px 4px;  background-color: #0085f6; color: #fff; font-size: 11px; }
+#afreecatv_player .right_ctrl .edit_angle_box .edit_angle_layer.bj li button { display: block; }
+#afreecatv_player .right_ctrl .edit_angle_box .edit_angle_layer.bj li button.btn_delete { background-color: #f70a0a; }
+#afreecatv_player .right_ctrl .edit_angle_box .edit_angle_layer.bj li:first-child button { margin-top: 0px; }
+
+#afreecatv_player .right_ctrl .edit_angle_box .edit_angle_layer li:hover { background-color: rgba(255,255,255,.3); }
+#afreecatv_player .right_ctrl .edit_angle_box .edit_angle_layer li.on { border: 1px solid #008aff; border-right-width: 2px; border-left-width: 2px; }
+#afreecatv_player .right_ctrl .edit_angle_box .edit_angle_layer li.on div { color: #008aff; }
+#afreecatv_player .right_ctrl .edit_angle_box .edit_angle_layer li.on + li { border-top-color: transparent;}
+#afreecatv_player .right_ctrl .edit_angle_box.on .edit_angle_layer { opacity: 1; z-index: auto; display: block; }
+#afreecatv_player .right_ctrl .edit_angle_box.on > button { color: #11a3ff; }
+#afreecatv_player .right_ctrl .edit_angle_box.on > button em { background-position: -375px -145px; }
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+	#afreecatv_player .right_ctrl .edit_angle_box .edit_angle_layer li button { margin-top: -4px; }
+	#afreecatv_player .right_ctrl .edit_angle_box .edit_angle_layer.bj li:first-child button { margin-top: -2px; }
+    #afreecatv_player .right_ctrl .edit_angle_box .edit_angle_layer li div span em { padding: 2px 6px; }
+}
+@-moz-document url-prefix() {
+	#afreecatv_player .right_ctrl .edit_angle_box .edit_angle_layer li button { margin-top: -4px; }
+	#afreecatv_player .right_ctrl .edit_angle_box .edit_angle_layer.bj li:first-child button { margin-top: -2px; }
+    #afreecatv_player .right_ctrl .edit_angle_box .edit_angle_layer li div span em { padding: 2px 6px; }
+}
+
+
+/* SCROLLBAR IE */
+#afreecatv_player .right_ctrl .edit_angle_box .edit_angle_layer { scrollbar-arrow-color:#9D9992; scrollbar-3dlight-color:#D4D0C8; scrollbar-darkshadow-color:#D4D0C8; scrollbar-face-color:#FFFFFF; scrollbar-hightlight-color:#FFFFFF; scrollbar-shadow-color:#FFFFFF; scrollbar-track-color:#EAE7E1; }
+/* SCROLLBAR Chrome Safari */
+#afreecatv_player .right_ctrl .edit_angle_box .edit_angle_layer::-webkit-scrollbar {width: 8px; height: 8px; border: 1px solid rgba(0,0,0,1); }
+#afreecatv_player .right_ctrl .edit_angle_box .edit_angle_layer::-webkit-scrollbar-button:start:decrement, ::-webkit-scrollbar-button:end:increment {display: block; height: 10px; background: rgba(0,0,0,.7); }
+#afreecatv_player .right_ctrl .edit_angle_box .edit_angle_layer::-webkit-scrollbar-track { -webkit-border-radius: 10px; border-radius:10px; -webkit-box-shadow: inset 0 0 4px rgba(0,0,0,.2)}
+#afreecatv_player .right_ctrl .edit_angle_box .edit_angle_layer::-webkit-scrollbar-thumb {height: 50px; width: 50px; background: rgba(255,255,255,.8); -webkit-border-radius: 8px; border-radius: 8px; -webkit-box-shadow: inset 0 0 4px rgba(0,0,0,.1)}
+
+/* ********************************* */
+/* ********************************* */
+/*  *********** 별별통계 ************ */
+#afreecatv_player .btn_statistics { float: left; color:#fff; font-size: 12px; margin: -2px 0 0 15px;line-height: 18px; opacity: 0.9; filter: alpha(opacity=90);-moz-opacity: 0.9; -khtml-opacity: 0.9; }
+#afreecatv_player .btn_statistics em { position: relative; display: inline-block; width: 19px; height: 19px; margin:0 4px -5px 0; background-position: -405px -120px; }
+#afreecatv_player .btn_statistics:hover ,
+#afreecatv_player .btn_statistics.on { color:#11a3ff; }
+#afreecatv_player .btn_statistics:hover em ,
+#afreecatv_player .btn_statistics.on em { background-position: -405px -145px; }
+#afreecatv_player .statistics_list { overflow: hidden; position: absolute; z-index: -1; top: -50px; bottom: 100%; right: 20px; width: 245px; opacity: 0;  filter: alpha(opacity=0);-moz-opacity: 0; -khtml-opacity: 0; }
+#afreecatv_player .statistics_list .statistics_list_header { line-height: 24px; text-indent: 20px; font-size: 14px; color:#00b4ff; background-color: rgba(41,41,41,.75); border: 1px solid #000; }
+#afreecatv_player .statistics_list .statistics_list_header span { vertical-align: -2px; }
+#afreecatv_player .statistics_list .statistics_list_contents { position: absolute; top: 27px; bottom: 0; left: 0; right: 0; overflow: auto;  }
+#afreecatv_player .statistics_list .statistics_list_contents span { display:block; border-bottom: 1px solid #000; width: 0; height: 0; }
+#afreecatv_player .statistics_list ul { max-width: 100%; overflow: auto; background: rgba(41,41,41,.75); padding: 0; margin: 0;list-style: none; border: 1px solid #000; border-top: none; }
+#afreecatv_player .statistics_list ul li { border: 1px solid transparent; border-top: 1px solid rgba(255,255,255,.1);   }
+#afreecatv_player .statistics_list ul li button { display: block; width: 100%; line-height: 35px; color:#fff; text-indent: 20px; font-size: 13px; text-align: left; }
+#afreecatv_player .statistics_list ul li:hover,
+#afreecatv_player .statistics_list ul li.on { border: 1px solid #00ee8c; }
+#afreecatv_player .statistics_list ul li:hover button { color:#00ee8c; }
+#afreecatv_player .statistics_list ul li.on button { color:#00ee8c; }
+#afreecatv_player .graph_wrap { position: absolute; z-index: 1; bottom: 50px; top: 100%; left: 20px; right: 20px;  background: rgba(41,41,41,.75); border: 1px solid #000; opacity: 0;  filter: alpha(opacity=0);-moz-opacity: 0; -khtml-opacity: 0; }
+#afreecatv_player .statistics_list .close ,
+#afreecatv_player .graph_wrap .close { overflow: hidden; position: absolute; z-index: 10; top: -23px; right: 0px; width: 17px; height: 17px; text-indent: -9999em; background-position: -57px -97px; opacity: .7; background-color: rgba(41,41,41,.75); border: 1px solid #000;}
+#afreecatv_player .statistics_list .close  { top: 8px; right: 8px; width: 11px; height: 11px; border: none; background-color: transparent; background-position: -60px -100px; }
+#afreecatv_player .graph_wrap .close:hover { opacity: 1;}
+
+#afreecatv_player .statistics_graph,
+#afreecatv_player .revitalize_graph,
+#afreecatv_player .graph_hover { width: 100%; height: 100%; position: absolute; top: 0; left: 0; bottom: 0; }
+#afreecatv_player .statistics_graph { z-index: 1; }
+#afreecatv_player .revitalize_graph { z-index: 2; }
+#afreecatv_player .graph_hover { z-index: 3; }
+#afreecatv_player .revitalize_graph > div { position: relative; overflow: hidden; height: 100%;   }
+#afreecatv_player .statistics_section { position: absolute; z-index: 19; bottom: 0; left: 20px; right: 20px;  opacity: 0;  filter: alpha(opacity=0);-moz-opacity: 0; -khtml-opacity: 0; }
+#afreecatv_player .statistics_section button {  position: absolute; right: 0; bottom: 0; height: 26px; padding:0 10px; font-size: 13px; border: 1px solid #fff; border-radius: 13px; color:#fff; }
+#afreecatv_player .statistics_section button span { display: inline-block; position: relative; padding-right: 13px; height: 100%; line-height: 23px;}
+#afreecatv_player .statistics_section button span em { position: absolute; right: 0; top: 50%; margin-top: -4px; display: block; width: 0; height: 0; border: 4px solid transparent; border-left: 5px solid #fff; }
+#afreecatv_player .statistics_section button:first-child { right:auto; left: 0; }
+#afreecatv_player .statistics_section button:first-child span { padding: 0 0 0 13px; }
+#afreecatv_player .statistics_section button:first-child span em { left:0; right: auto; border: 4px solid transparent; border-right: 5px solid #fff;  }
+#afreecatv_player .statistics_section button:hover { border:1px solid #00b4ff; color:#00b4ff; }
+#afreecatv_player .statistics_section button:hover em { right: -4px; border-left-color: #00b4ff; }
+#afreecatv_player .statistics_section button:first-child:hover em { left:-4px; right: auto; border-right-color: #00b4ff; border-left-color: transparent; }
+
+@media screen and (max-width:700px) {
+    #afreecatv_player .btn_statistics { font-size: 0; }
+}
+
+/* 그래프 출력 모션 */
+#afreecatv_player .statistics_list.on { top: 20px; bottom: 50px;}
+#afreecatv_player .statistics_section.on { bottom: 65px;}
+#afreecatv_player .statistics_list.on.graph_on { bottom: 59%; }
+#afreecatv_player .statistics_list.on.section_on { bottom: 100px; }
+#afreecatv_player .graph_wrap.on { top: 50%; }
+
+#afreecatv_player .statistics_list.on ,
+#afreecatv_player .statistics_section.on ,
+#afreecatv_player .graph_wrap.on {  z-index: 19; opacity: 1; filter: alpha(opacity=100);-moz-opacity: 1; -khtml-opacity: 1; }
+
+#afreecatv_player .statistics_list.on { z-index: 42; }/* 방송정보 확장출력에 따른 상단 타이틀 겹침 해결  */
+
+/* SCROLLBAR IE */
+#afreecatv_player .statistics_list .statistics_list_contents { scrollbar-face-color: #6a6b6d; scrollbar-shadow-color: #77787b; scrollbar-highlight-color: #77787b; scrollbar-3dlight-color: #2a2b30; scrollbar-darkshadow-color: #2a2b30; scrollbar-track-color: #2a2b30; scrollbar-arrow-color: #6f7073; }
+/* SCROLLBAR Chrome Safari */
+#afreecatv_player .statistics_list .statistics_list_contents::-webkit-scrollbar {width: 8px; height: 8px;  background-color: rgba(0,0,0,.8)}
+#afreecatv_player .statistics_list .statistics_list_contents::-webkit-scrollbar-button:start:decrement, ::-webkit-scrollbar-button:end:increment {display: block; height: 10px; background: rgba(0,0,0,.8); }
+#afreecatv_player .statistics_list .statistics_list_contents::-webkit-scrollbar-track { -webkit-border-radius: 10px; border-radius:10px; }
+#afreecatv_player .statistics_list .statistics_list_contents::-webkit-scrollbar-thumb {height: 50px; width: 50px; background: rgba(255,255,255,.8); -webkit-border-radius: 8px; border-radius: 8px; -webkit-box-shadow: inset 0 0 4px rgba(0,0,0,.1)}
+/* 모션용 속성 */
+#afreecatv_player .statistics_list ,
+#afreecatv_player .statistics_list ul,
+#afreecatv_player .statistics_list ul li,
+#afreecatv_player .statistics_list ul li button,
+#afreecatv_player .statistics_list .close,
+#afreecatv_player .graph_wrap,
+#afreecatv_player .graph_wrap .close,
+#afreecatv_player .statistics_graph ,
+#afreecatv_player .statistics_section,
+#afreecatv_player .statistics_section button,
+#afreecatv_player .statistics_section button em,
+#afreecatv_player .center_btn .volume_icon span
+ { -webkit-transition: all 0.3s ease-in-out; -moz-transition: all 0.3s ease-in-out; -o-transition: all 0.3s ease-in-out; transition: all 0.3s ease-in-out; }
+
+ @media screen and (-webkit-min-device-pixel-ratio:0) {
+     #afreecatv_player .statistics_section button span  { line-height: 26px; }
+ }
+ @-moz-document url-prefix() {
+    #afreecatv_player .statistics_section button span  { line-height: 26px; }
+ }
+
+
+
+
+/* ******  씨네마모드 *********  */
+#afreecatv_player .btn_smode { width: 24px; background-position: -75px 0; }
+#afreecatv_player .btn_smode:hover {background-position: -75px -25px;}
+/* ******  전체모드 ******  */
+#afreecatv_player .btn_extend_mode { width: 13px; background-position: -125px 0; }
+#afreecatv_player .btn_extend_mode:hover {background-position: -125px -25px;}
+/* ******  임베디드 로고  *********  */
+#afreecatv_player .btn_afreecatv ,#afreecatv_player .btn_share { display: none; overflow: hidden; text-indent: -9999em; }
+#afreecatv_player .btn_afreecatv { display: none; width: 77px; background-position: -100px -50px;}
+#afreecatv_player .btn_afreecatv:hover {background-position: -100px -75px;}
+/* ******  공유 *********  */
+#afreecatv_player .btn_share { display: none; width:18px; background-position: -175px 0px; }
+#afreecatv_player .btn_share:hover {background-position: -175px -25px; }
+/* ******  채팅 *********  */
+#afreecatv_player .btn_chat { display: none; width:19px; height: 17px; margin-top: -1px; background-position: -225px 0px; }
+#afreecatv_player .btn_chat:hover {background-position: -225px -25px; }
+
+/* 스크린모드시 채팅 출력 버튼 수정 */
+.smode_chatbtn {display:none;}
+.smode_chatbtn a {display:block; position:absolute; right:0; top:13px; z-index:41; overflow:hidden; text-indent:-1111px; width:45px; height:40px; border-top-left-radius:4px; border-bottom-left-radius:4px; background: url('../../../images/flashplayer/smode_chatbtn.png') no-repeat 6px 6px; transition:all 0.1s ease-out;-webkit-transition:all 0.1s ease-out; opacity:.8; filter:alpha(opacity=80); -ms-filter: "alpha(opacity=80)";}
+.smode_chatbtn a:hover {background: url('../../../images/flashplayer/smode_chatbtn_on.png') no-repeat 6px 6px;}
+
+.smode .cb_list #afreecatv_player:hover .smode_chatbtn ,
+.smode .cb_video #afreecatv_player:hover .smode_chatbtn  { display: block; }
+.embed_mode .smode_chatbtn { display:none !important; }
+
+
+
+/* ****************** */
+/* ****** 중앙버튼 ****** */
+#afreecatv_player .center_btn {position:absolute; top:50%; left:50%; background:rgba(0, 0, 0,0.7); width:100px; height:100px; margin:-50px 0 0 -50px; border-radius:50%; z-index:25;}
+#afreecatv_player .center_btn button { display: block; width: 100%; height: 100%; }
+#afreecatv_player .center_btn span { position: relative; overflow: hidden; display: block; margin: auto; font: 0/0 a; text-indent: -9999em; }
+#afreecatv_player .center_btn .btn_cneter_play span { height: 42px; width: 38px;  background-position: -225px -50px; }
+#afreecatv_player .center_btn .btn_cneter_pause span { height: 41px; width: 34px; background-position: -225px -100px; }
+#afreecatv_player .center_btn .volume_icon { position: absolute; left: 50%; top: 50%; margin: -21.5px 0 0 -24px;  width: 48px; height: 43px; }
+#afreecatv_player .center_btn .volume_icon span { position: absolute; opacity: 1; }
+#afreecatv_player .center_btn .volume_icon span:first-child { left: 0; top: 50%; margin-top: -21.5px;  width: 25px; height: 43px; background-position: 0 -250px; }
+#afreecatv_player .center_btn .volume_icon span:first-child + span { left: 31px; top: 50%; margin-top: -11.5px; width: 9px; height: 23px; background-position: -31px -259px; }
+#afreecatv_player .center_btn .volume_icon span:first-child + span + span { left: 37px; top: 50%; margin-top: -18.5px; width: 12px; height: 37px; background-position: -40px -252px; }
+#afreecatv_player .center_btn .volume_icon span:first-child + span + span + span { opacity: 0;  left: 32px;  top: 50%; margin-top: -7px; width: 14px; height: 14px; background-position: -62px -264px;}
+#afreecatv_player .center_btn .volume_icon.low  span:first-child + span + span ,
+#afreecatv_player .center_btn .volume_icon.mute span:first-child + span ,
+#afreecatv_player .center_btn .volume_icon.mute span:first-child + span + span { opacity: 0; }
+#afreecatv_player .center_btn .volume_icon.mute span:first-child + span + span + span { opacity: 1; }
+
+
+
+/* ****************** */
+/* ****** 툴팁 ****** */
+#afreecatv_player .tooltip { display: none; position: absolute !important; top:-25px !important; z-index: 30; width: 120px !important; height: 24px !important; min-height: auto !important; padding: 0 !important; margin-left: -48px !important; overflow: hidden;  text-indent: 0 !important; background: none; text-align:center !important; background: none !important;}
+#afreecatv_player .tooltip span { display: inline-block; white-space: nowrap; overflow: visible; padding: 5px 4px 4px 4px !important; padding: 5px 4px 2px 4px\0; *padding: 5px 4px 2px 4px; color:#fff; text-align: center;  font-size: 11px; background: url('../../../images/afreecatv_player/transparent_0.7.png') repeat; -webkit-border-radius: 2px; -moz-border-radius: 2px; border-radius: 2px; }
+/*#afreecatv_player .tooltip em {position: absolute; bottom: -4px; left: 50%; margin-left: -5.5px; width: 1px; height: 1px; opacity: .7; filter: alpha(opacity=70); border-top: 4px solid #000; border-left: 5.5px solid transparent; border-right: 5.5px solid transparent; }*/
+#afreecatv_player .btn_smode:hover .tooltip ,
+#afreecatv_player .btn_share:hover .tooltip ,
+#afreecatv_player .btn_afreecatv:hover .tooltip,
+#afreecatv_player .btn_chat:hover .tooltip,
+#afreecatv_player .btn_extend_mode:hover .tooltip ,
+#afreecatv_player .btn_setting:hover .tooltip {display: block !important;}
+#afreecatv_player .btn_afreecatv .tooltip {width: 140px !important; margin-left: -35px !important;}
+#afreecatv_player .btn_setting .tooltip {margin-left: -68px !important;}
+#afreecatv_player .setting_box.on .tooltip { display: none !important;}
+#afreecatv_player .btn_extend_mode .tooltip {margin-left: -87px !important; text-align: right !important;}
+body.zh_CN #afreecatv_player .btn_extend_mode .tooltip ,
+body.zh_TW #afreecatv_player .btn_extend_mode .tooltip { margin-left: -99px !important; }
+body.zh_CN.extend_mode #afreecatv_player .btn_extend_mode .tooltip ,
+body.zh_TW.extend_mode #afreecatv_player .btn_extend_mode .tooltip { margin-left: -90px !important; }
+
+/*라이브 알람 , 즐겨찾기*/
+#afreecatv_player .live_alert {  position: absolute; z-index: 41; top: 7px; left: -228px; width: 226px; height: 68px;
+	border: 1px solid #000;
+	background: rgba(0,0,0,.75); /* FF3+, Saf3+, Opera 10.10+, Chrome */
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#99000000',endColorstr='#99000000');
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#99000000',endColorstr='#99000000')";
+	-webkit-transition: all 0.3s ease; -moz-transition: all 0.3s ease; -o-transition: all 0.3s ease; transition: all 0.3s ease;
+}
+#afreecatv_player .live_alert div { position: relative; margin: 5px 20px 5px 5px; padding-left: 114px; height: 60px; }
+#afreecatv_player .live_alert div a {text-decoration: none;}
+#afreecatv_player .live_alert div em.live { overflow: hidden; position: absolute; z-index: 2; top: 0; left: 0; width: 43px; height: 19px; background: url('../../../images/afreecatv_player/split_player.png') no-repeat -150px -100px; text-indent: -9999em; }
+#afreecatv_player .live_alert div img { position: absolute; z-index: 1; top: 0; left: 0; }
+#afreecatv_player .live_alert div p { margin: 0 0 5px 0; padding-top: 5px; font-size: 12px; color: #fff; line-height: 1.3; }
+#afreecatv_player .live_alert div span {  font-size: 11px; color: #999;  }
+#afreecatv_player .live_alert div span i { font-style: normal;}
+#afreecatv_player .live_alert button { position: absolute; right: -1px; top: -1px; bottom: -1px; border: none; width: 15px; background-color: #000;}
+#afreecatv_player .live_alert button span { position: absolute; top: 31px; left: 4.5px; width: 5px; height: 9px; margin: 0 auto; background: url('../../../images/afreecatv_player/split_player.png') no-repeat -50px -125px; text-indent: -9999em; }
+#afreecatv_player .live_alert.on { left:0; }
+#afreecatv_player .live_alert.on button span { background-position: -50px -100px }
+#afreecatv_player .live_alert.off { left: -215px; }
+#afreecatv_player .live_alert.off button span { background-position: -50px -125px }
+
+/*영상 내 즐겨찾기 버튼*/
+#afreecatv_player .btn_bookmark { position: absolute; z-index: 35; bottom: 55px; right: -94px; width: 94px; height: 32px;
+	border: 1px solid #000;
+	background: rgba(0,0,0,.75);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#99000000',endColorstr='#99000000');
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#99000000',endColorstr='#99000000')";
+	-webkit-transition: all 0.3s ease; -moz-transition: all 0.3s ease; -o-transition: all 0.3s ease; transition: all 0.3s ease;
+}
+#afreecatv_player .btn_bookmark button { display: block; width: 100%; height: 100%; }
+#afreecatv_player .btn_bookmark button span { position: relative; padding: 0px 0 3px 22px; color:#fff; line-height: 1; font-size: 14px; font-family: 'NG' , AppleGothic ,sans-serif;  }
+#afreecatv_player .btn_bookmark button span em { position: absolute; display: block; left: 0; top: 0; width: 19px; height:19px; background: url('../../../images/afreecatv_player/split_player.png') no-repeat -125px -125px; }
+#afreecatv_player .btn_bookmark.on ,
+#afreecatv_player .btn_bookmark.off { right: 20px; }
+#afreecatv_player .btn_bookmark.off button span em { background-position: -125px -125px;; }
+#afreecatv_player .btn_bookmark:hover button span em,
+#afreecatv_player .btn_bookmark.on button span em { background-position: -100px -125px; }
+
+
+/* 추천방송 */
+#afreecatv_player .recommend_broadcast { position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: 5; background-color: #000;}
+#afreecatv_player .recommend_broadcast ul {overflow: hidden; position: absolute; top: 50%; left: 50%; padding: 0; margin: -140px 0 0 -318px; max-width: 636px; list-style: none; }
+#afreecatv_player .recommend_broadcast ul li { position: relative; float: left; width: 159px; height: 93px; }
+#afreecatv_player .recommend_broadcast ul li img { position: ; z-index: 1; display: block; width: 155px; height: 89px; margin: 2px 0 0 2px; }
+#afreecatv_player .recommend_broadcast ul li a {
+	overflow: hidden; position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 2;
+    display: block; padding: 10px 10px 0; margin: 2px;border: 1px solid #303030; color: #fff; line-height: 1.2; font-family: 'NG',dotum,AppleGothic;
+	background: rgba(0,0,0,0);text-decoration: none;
+    -webkit-transition: all 0.3s ease; -moz-transition: all 0.3s ease; -o-transition: all 0.3s ease; transition: all 0.3s ease;
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000',endColorstr='#00000000');
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000',endColorstr='#00000000')";
+}
+#afreecatv_player .recommend_broadcast ul li a strong { overflow: hidden; display: block; height: 26px;  margin: -40px 0 100px;  padding-top: 3px; font-size: 11px; line-height: 1.2; font-weight: normal;-webkit-transition: all 0.3s ease; -moz-transition: all 0.3s ease; -o-transition: all 0.3s ease; transition: all 0.3s ease; }
+#afreecatv_player .recommend_broadcast ul li a em { display: block; margin: 3px 0; color:#259bff; font-style: normal; }
+#afreecatv_player .recommend_broadcast ul li a span { font-size: 11px; font-size: 11px; color: #cbcbcb; font-family: 'NG',dotum,AppleGothic; }
+#afreecatv_player .recommend_broadcast ul li a span i {font-style: normal;}
+#afreecatv_player .recommend_broadcast ul li a .live { display: none;overflow: hidden; position: absolute; z-index: 3; top: -1px; left: -1px; width: 43px; height: 19px; background: url('../../../images/afreecatv_player/split_player.png') no-repeat -150px -100px; text-indent: -9999em; .-webkit-transition: all 0.3s ease; -moz-transition: all 0.3s ease; -o-transition: all 0.3s ease; transition: all 0.3s ease; }
+#afreecatv_player .recommend_broadcast ul li a .play_cnt { padding-left: 11px; background: url('../../../images/afreecatv_player/split_player.png') no-repeat -450px -47px; }
+#afreecatv_player .recommend_broadcast ul li a .running_time { margin-left: 3px; padding-left: 7px; background: url('../../../images/afreecatv_player/split_player.png') no-repeat -450px -72px; }
+
+#afreecatv_player .recommend_broadcast ul li.live a { border-color: #e0070e; }
+#afreecatv_player .recommend_broadcast ul li.live a .live { display: block; }
+#afreecatv_player .recommend_broadcast ul li:hover a {
+	background: rgba(0,0,0,.75); /* FF3+, Saf3+, Opera 10.10+, Chrome */
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#99000000',endColorstr='#99000000');
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#99000000',endColorstr='#99000000')";
+}
+#afreecatv_player .recommend_broadcast ul li:hover a strong {margin:0;}
+#afreecatv_player .recommend_broadcast ul li.live:hover  a .live {top: -20px;}
+#afreecatv_player .recommend_broadcast.smallest ul { width: 460px; height: 186px; margin: -93px -230px; }
+#afreecatv_player .recommend_broadcast.smallest ul li {width: 153.33px;}
+#afreecatv_player .recommend_broadcast.smallest ul li img { width: 149.33px; }
+
+
+/* ******블라인드 텍스트 출력****** */
+#afreecatv_player .video_blind {position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 40; background-color: #000; line-height: 1.6; text-align: center; text-align:center; vertical-align:middle; }
+#afreecatv_player .video_blind.white { z-index: 55; background-color: #fff; border-bottom: 1px solid #ddd; } /* 무중단 케이스용 흰 배경 */
+#afreecatv_player .video_blind .video_blind_in {display: table; width: 100%;  height: 100%; *padding-top: 18%; }
+#afreecatv_player .video_blind .video_blind_in .content {display: table-cell; vertical-align: middle; height: 100%; color:#fff;}
+#afreecatv_player .video_blind h2 { font-size: 30px; margin-bottom: 10px; color:#fff;  font-family: 'NG' , AppleGothic ; }
+#afreecatv_player .video_blind .content input { border: 1px solid #999; width: 265px; height: 25px; }
+#afreecatv_player .video_blind .content button {width: 66px; height: 28px; color:#fff; background-color: #008aeb;margin-left: 5px;}
+#afreecatv_player .video_blind .content p { margin: 10px; font-size: 12px; color:#fff; line-height: 1.6; }
+
+#afreecatv_player .video_blind .btn_set button { width: 70px; height: 26px; font-size: 11px; color:#525252; border: 1px solid #b8b8b8; line-height: 1; vertical-align: -2px\9; background-color: #fff}
+#afreecatv_player .video_blind .btn_set button span {position: relative;}
+#afreecatv_player .video_blind .btn_set button:first-child {margin-left: 0; color:#fff; background-color: #4096de; border-color: #3889bf;}
+#afreecatv_player .video_blind .btn_set button:hover {border-color: #4aa6e3;}
+#afreecatv_player .video_blind .btn_set button:first-child:hover {border-color: #3889bf; background-color: #4aa6e3; }
+
+/***** 해외  *****/
+#afreecatv_player .video_blind .content .type_continue{background:url('../../../lang/images/web/player/bg_continue.png') center center no-repeat;min-width:460px;word-break : keep-all}
+#afreecatv_player .video_blind .content .type_continue h2 {overflow: hidden; width: 400px; /*height: 142px;*/ margin: -5px auto 114px;font-size:47px;color:#373c43;text-align:center;}
+body.ko_KR #afreecatv_player .video_blind .content .type_continue h2{ text-indent: -9999em; background: url('../../../lang/images/web/player/txt_continue.png') no-repeat center; }
+body.en_US  #afreecatv_player .video_blind .content .type_continue h2{ text-indent: -9999em; background: url('../../../lang/images/web/player/txt_continue_en.png') no-repeat center 13px; }
+#afreecatv_player .video_blind .content .type_continue p {margin-bottom: 10px; color: #000 ;line-height:1.2em}
+#afreecatv_player .video_blind .content .type_continue p.txt{color:#0067e2;font-size:21px; font-family: 'NG' , AppleGothic;letter-spacing:-1px}
+/***** 해외  *****/
+#afreecatv_player .video_blind .content .type_continue span { display: block; width: 177px; height: 40px; margin: 0 auto; background-color: #373c43; font-size: 16px; color: #fff; line-height: 2.5; }
+#afreecatv_player .video_blind .content .type_continue span em {font-style: normal; color:#00ffd2; font-size: 16px; line-height: 2.5; }
+
+#afreecatv_player .video_blind .content .type_adult h2 {
+	overflow: hidden; margin: 0 auto 15px; text-indent: -9999em; width:81px; height: 81px; background: url('../../../images/afreecatv_player/adult_type.png') no-repeat center;
+}
+#afreecatv_player .video_blind .content .type_adult strong { font-size: 12px; color:#0086fe; }
+#afreecatv_player .video_blind .content .type_adult .btn_adult_play button { overflow: hidden; width: 38px; height: 42px; margin: 0 0 15px 0; background-color: transparent; background-position: -225px -50px; }
+#afreecatv_player .video_blind .content .type_adult .btn_adult_play button span { font: 0/0 a ;}
+#afreecatv_player .video_blind .content .type_adult .btn_adult_play p span { padding: 8px 0 8px 40px; color: #fff; background: url('../../../images/afreecatv_player/adult_type_ss.png')  no-repeat left center; background-size: 28px 28px;}
+#afreecatv_player .video_blind .content .type_adult .btn_adult_play p span em { color: #e30102; font-style: normal;}
+
+#afreecatv_player .video_blind .content .type_adult_skip h2 { 	overflow: hidden; margin: 0 auto 15px; text-indent: -9999em; width:61px; height: 61px; background: url('../../../images/afreecatv_player/adult_type_s.png') no-repeat center; }
+#afreecatv_player .video_blind .content .type_adult_skip p { line-height: 17px; }
+#afreecatv_player .video_blind .content .type_adult_skip .strong{ font-size: 14px;  line-height: 20px; }
+#afreecatv_player .video_blind .content .type_adult_skip em { color: #e30102; font-style: normal; }
+
+#afreecatv_player .video_blind .content .type_password h2 { font-size: 14px; color:#0086fe; margin: 0; }
+#afreecatv_player .video_blind .content .type_password p { margin: 5px; font-size: 11px; }
+#afreecatv_player .video_blind .content .type_password label {display: inline-block;height: 100%; vertical-align: middle;  color: #fff; line-height: 1.6; *vertical-align: 6px; }
+@media \0screen {#afreecatv_player .video_blind .content .type_password label { vertical-align: -3px; } }
+#afreecatv_player .video_blind .content .type_password input { border: 1px solid #999; width: 90px; height: 25px; margin: 20px 0 5px 10px; text-align: center; }
+#afreecatv_player .video_blind .content .type_password .btn_set {border-top: 1px solid #e4e4e4; width: 272px; margin: 10px auto 0; padding-top: 15px;}
+
+#afreecatv_player .video_blind .content .type_blind h2 {font-size: 40px; margin: 0; line-height: 1.2; color: #fff;}
+#afreecatv_player .video_blind .content .type_blind strong { font-size: 12px; color:#0086fe; }
+#afreecatv_player .video_blind .content .type_blind p {font-size: 12px; margin: 15px 0 0 0; color: rgba(255,255,255,.7); filter: alpha(opacity=70); -moz-opacity: 0.7; }
+#afreecatv_player .video_blind .content .type_blind button {margin-top: 5px;color:#525252 ; border: 1px solid #b8b8b8; background-color: #fff ;}
+#afreecatv_player .video_blind .content .type_blind button:hover {background-color: #fff;border: 1px solid #b8b8b8;}
+#afreecatv_player .video_blind .content .type_end h2 {font-size: 18px; margin: 0; *padding-top: 10%;}
+#afreecatv_player.ctrl_output  .player_ctrlBox ,
+#afreecatv_player.blind_ctrn_output  .player_ctrlBox { z-index: 51; bottom: 0 !important; }  /* 컨트롤바  강제 노출 */
+
+
+#afreecatv_player .video_blind .content .type_mobile_pause {  }
+#afreecatv_player .video_blind .content .type_mobile_pause h2 { margin: 0 0 3px 0; color:#fff; font-size: 15px; font-weight: normal;  }
+#afreecatv_player .video_blind .content .type_mobile_pause p { margin: 0; font-size: 15px; padding-bottom: 145px; background: url('../../../images/mobile/video/img_case09.png') no-repeat bottom center; background-size: auto 130px; }
+
+#afreecatv_player .video_blind .content .type_adult_lock h2 { position: relative; height: 61px; text-align: center; }
+#afreecatv_player .video_blind .content .type_adult_lock h2 span {position: absolute; width: 61px; height: 61px; top: 0; left: 50%; font-size: 0; }
+#afreecatv_player .video_blind .content .type_adult_lock .adult { margin-left: -65px; background: url('../../../images/afreecatv_player/adult_type_s.png') no-repeat center; }
+#afreecatv_player .video_blind .content .type_adult_lock .lock { margin-right: -65px; background: url('../../../images/afreecatv_player/lock_type.png') no-repeat center; }
+#afreecatv_player .video_blind .content .type_adult_lock p {clear: both; color:#0086fe;}
+
+#afreecatv_player .video_blind .content .type_common p { font-size: 14px; color:#bebebe; *padding-top: 8%;}
+#afreecatv_player .video_blind .content .type_common span { padding:0 5px; }
+
+#afreecatv_player .video_blind .blue {color:#328fde !important;}
+#afreecatv_player .video_blind .red {color:#f73035 !important;}
+
+
+/* ******************************** */
+/* **************로딩************** */
+#afreecatv_player .loading ,
+#afreecatv_player .buffering { position: absolute;  top: 0; left: 0; right: 0; bottom: 0; z-index: 50;  width: 100%; height: 100%; margin: 0;  background: #000; }
+#afreecatv_player .buffering { z-index: 37; background-color: #222; opacity:.7; filter: alpha(opacity=70);-moz-opacity: .7; }
+#afreecatv_player .loading  span ,
+#afreecatv_player .buffering span { position: absolute; top: 50%; left: 50%; margin: -40px 0 0 -40px; display: inline-block; width: 80px; height: 80px; background: url('../../../images/afreecatv_player/loading.gif') no-repeat center; }
+#afreecatv_player .buffering span { position: absolute; top: 50%; left: 50%; margin: -17px 0 0 -17px; display: inline-block; width: 34px; height: 34px; background: url('../../../images/afreecatv_player/buffering.gif') no-repeat center; }
+#afreecatv_player .loading p,
+#afreecatv_player .buffering p { position: relative;z-index: 2; margin-top: 100px ; color: #ccc; font-size: 12px;}
+#afreecatv_player .loading div p {margin: 10px 0;}
+#afreecatv_player .loading a { position: relative;z-index: 2; text-decoration: underline; color:#00a2ff;}
+
+
+
+
+
+/* 편집각 하이라이트 만들기 태그 플러그인 컨트롤 */
+
+
+/* ********************************* */
+/* ***화면 영역 mouse over 이벤트*** */
+#afreecatv_player .player_title,
+#afreecatv_player .bg_gradient,
+#afreecatv_player .player_ctrlBox,
+#afreecatv_player .tuneout ,
+.extend_mode .player_item_list {-webkit-transition: all 0.3s ease; -moz-transition: all 0.3s ease; -o-transition: all 0.3s ease; transition: all 0.3s ease; }
+#afreecatv_player.mouseover .player_title ,
+#afreecatv_player.mouseover .tuneout { top: 0;}
+#afreecatv_player.mouseover .bg_gradient { bottom: 0;}
+#afreecatv_player.mouseover .player_ctrlBox { bottom: 0px;}
+/*#afreecatv_player:focus .player_ctrlBox {bottom: 0;}*/
+
+/***********************/
+/*플레이어 외부 컨트롤 */
+.player_item_list { position: relative; min-width: 460px; z-index: 52; height: 23px; padding: 15px 20px 15px 0; border-top: 1px solid #ddd; border-bottom: 1px solid #ddd;}
+.player_item_list .btn_video { display: none; float: left; margin:-3px 0 0 20px; }
+.player_item_list .btn_video button { height: 29px; margin-right: 5px; border: 1px solid #ccc; padding:0 8px; border-radius: 2px; }
+.player_item_list ul { position: relative; float: right; padding: 0; margin: 0; }
+.player_item_list ul li { position: relative; display: inline-block; margin-left: 10px; line-height: 1.6; *margin-left: 0;}
+.player_item_list ul li.laterwatch {position:static; top:auto; left:auto; right:auto; filter:alpha(opacity=100);-moz-opacity:1;-khtml-opacity: 1;opacity:1;} /* 2017-06-20 수정 */
+
+.player_item_list ul li:first-child {margin: 0;}
+.player_item_list ul li button { position: relative; z-index: 100; overflow:hidden;  height: 23px; margin: 0; padding: 0; margin-left: 1px; border: none;font-size: 0; background-color: transparent; cursor: pointer; color: #444;  outline: none; }
+.player_item_list ul li button em { position: relative; display: inline-block; height: 23px;vertical-align: middle; line-height: 1.6; background:  url('../../../images/afreecatv_player/player_button.png') no-repeat -9999em; }
+.player_item_list ul li button span { position: relative; padding-left: 5px; vertical-align: middle; font-size: 14px; line-height: 1.2; }
+.player_item_list ul li.vote button span { padding-left: 3px; }
+
+.player_item_list.smallest ul li button span,
+.player_item_list ul li.bookmark button span ,
+.player_item_list ul li.up_recommend button span ,
+.player_item_list ul li.share button span { display: none; overflow: hidden; padding: 0; text-indent: -9999em; font: 0/0 a;}
+.player_item_list ul li.shopping button em { padding-left: 23px; background-position: 0 0; }
+.player_item_list ul li.shop_game button em {padding-left: 23px; background-position: 0 0; }
+.player_item_list ul li.count_vote button em { padding-left: 15px; background-position: -66px 0; }
+.player_item_list ul li.vote_result button em { padding-left: 17px; background-position: -150px 0; }
+.player_item_list ul li.vote button em { padding-left: 23px; background-position: -237px 0; }
+.player_item_list ul li.hope_balloon button em { padding-left: 17px; background-position: -325px 0; }
+.player_item_list ul li.star_balloon button em { padding-left: 17px; background-position: -410px 0; }
+.player_item_list ul li.sticker button em { padding-left: 19px; background-position: -482px 0; }
+.player_item_list ul li.adballoon button em { padding-left: 19px; background-position: -1003px 0; }
+
+.player_item_list ul li.honey_fun button em { padding-left: 18px; background-position: -632px 0; }
+.player_item_list ul li.laterwatch button em { padding-left: 19px; background-position: -887px 0; }
+.player_item_list ul li.chocolate button em { padding-left: 19px; background-position: -557px 0; }
+.player_item_list ul li.vr button em { padding-left: 23px; background-position: -827px 0; }
+.player_item_list ul li.multi button em { padding-left: 17px; background-position: -860px 0; }
+.player_item_list ul li.subscribe button em {padding-left: 20px; background-position: -916px 0; }
+.player_item_list ul li.video_edit button em {padding-left: 20px; background-position: -945px 0; }
+.player_item_list ul li.edit_angle button em {padding-left: 20px; background-position: -975px 0; }
+
+.player_item_list ul li.bookmark button em,
+.player_item_list ul li.up_recommend button em,
+.player_item_list ul li.share button em { overflow: hidden; height: 21px;}
+.player_item_list ul li.bookmark button em { padding-left: 20px; background-position: -706px 0; }
+.player_item_list ul li.up_recommend button em { padding-left: 21px; background-position: -738px 0; }
+.player_item_list ul li.share button em { padding-left: 23px; background-position: -770px 0; }
+
+.player_item_list ul li button:hover em,
+.player_item_list ul li button.on em { background-position-y: -80px; color:#11a3ff;}
+.player_item_list ul li button:hover span,
+.player_item_list ul li button.on span { color:#11a3ff; }
+
+.player_item_list.off ul li button,
+.player_item_list ul li button.off { cursor: default;  }
+.player_item_list.off ul li button em ,
+.player_item_list ul li button.off em { background-position-y: -40px !important; }
+.player_item_list.off ul li button span ,
+.player_item_list ul li button.off span { color:#c3c3c3; }
+
+/* 구독툴팁 추가 170807 */
+.player_item_list ul li.subscribe {position:relative;z-index:60;}
+.player_item_list ul li .tooltip_bx { overflow: hidden; display:block;opacity:0;position:absolute; bottom: 20px;left:-37px;z-index:10; width: 0; height: 0; background:#fff;-webkit-transition: all 0.3s ease; -moz-transition: all 0.3s ease; -o-transition: all 0.3s ease; transition: all 0.3s ease; }
+.player_item_list ul li .tooltip_bx em { position:absolute;left:40px;bottom:-6px;display:block;width:8px;height:6px;background:url('../../../images/afreecatv_player/split_player.png') no-repeat -320px -150px;}
+.player_item_list ul li .tooltip_bx .subscribe_info {position:relative;min-width:199px;min-height:45px;}
+.player_item_list ul li .tooltip_bx .subscribe_info .icon {position:absolute;top:11px;left:10px;display:block;width:27px;height:23px;background:url('../../../images/afreecatv_player/tooltip_icon.png') no-repeat 0 -500px;}
+.player_item_list ul li .tooltip_bx .subscribe_info p {padding:8px 10px 8px 48px;line-height:130%;font-size:11px;color:#000;letter-spacing:-1px}
+.player_item_list ul li .tooltip_bx .subscribe_info p .cr01 {color:#328fe1}
+.player_item_list ul li .tooltip_bx .subscribe_info p .cr02 {color:#ff4f12}
+.player_item_list ul li.subscribe:hover .tooltip_bx { overflow: visible; opacity:1; bottom:30px; width: auto; height: auto; border:1px solid #d5d5d5; }
+.player_item_list ul li.subscribe.ing .tooltip_bx {display:none}
+
+.player_item_list .layer_tooltip { display: block; float: none; position: absolute; z-index: 99; right: 0;  bottom: 0; opacity:0; -moz-opacity: 0; filter: alpha(opacity=0); overflow: hidden; -webkit-transition: all 0.3s ease; -moz-transition: all 0.3s ease; -o-transition: all 0.3s ease; transition: all 0.3s ease; }
+.player_item_list .layer_tooltip.on { display: block; bottom: 54px; z-index: 1000;  opacity: 1; -moz-opacity: 1; filter: alpha(opacity=100);}
+.player_item_list .layer_tooltip p { display: non; padding: 12px 15px 10px 50px; margin: 0; min-height: 15px; font-size: 11px; color:#dedede; line-height: 1.6; border: 1px solid #000; -webkit-border-radius: 2px; -moz-border-radius: 2px; border-radius: 2px;
+background: url('../../../images/afreecatv_player/transparent_0.7.png') repeat; }
+.player_item_list .layer_tooltip p a {color:inherit; font-size:11px; text-decoration:underline;}
+.player_item_list .layer_tooltip p em { position: absolute; left: 15px; top: 50%; width: 27px; height: 28px; margin-top: -15px; background:  url('../../../images/afreecatv_player/tooltip_icon.png') no-repeat -9999em; }
+.player_item_list .layer_tooltip p.error_text em { background-position: 0 3px;}
+.player_item_list .layer_tooltip p.up_text em { background-position: 0 -97px;}
+.player_item_list .layer_tooltip p.bookmark_text em { background-position: 0 -198px;}
+.player_item_list .layer_tooltip p.honey_fun_text em { height: 18px; margin-top: -10px; background-position: 0 -300px;}
+.player_item_list .layer_tooltip p.laterwatch_text em { margin-top: -10px; background-position: 0 -391px;}
+.player_item_list .layer_tooltip p.edit_angle_text em { margin-top: -10px; background-position: 0 -610px;}
+.player_item_list .layer_tooltip p.alert_text em {  display: none; }
+.player_item_list .layer_tooltip p.alert_text { padding: 12px 15px 10px 15px; }
+.player_item_list .layer_tooltip p.error_text i {font-style: normal; }
+.player_item_list .layer_tooltip p span { color: #5ca1e3;}
+@media screen and (max-width:660px) {
+     .video_mode .player_item_list ul li button span,
+     .video_mode .player_item_list ul li.bookmark button span ,
+     .video_mode .player_item_list ul li.up_recommend button span ,
+     .video_mode .player_item_list ul li.share button span { display: none; overflow: hidden; padding: 0; text-indent: -9999em; font: 0/0 a;}
+}
+
+/* 레이어_원저작자 */
+/* 2018-0125 동영상 시청페이지에서 이동 */
+.player_item_list .layer_subscribe  {  }
+.player_item_list .layer_subscribe { display: none; position:absolute; left:-138px;top:35px; z-index:60; min-width:183px;padding:10px; border:1px solid #adadad; border-radius:3px; background:#fff;}
+.player_item_list .layer_subscribe .memo {font-size:13px; line-height:1.3em; letter-spacing:-1px; padding:0 20px 0 0; }
+.player_item_list .layer_subscribe .memo .nick {color:#3d82f6; font-weight:bold;}
+.player_item_list .layer_subscribe .sbc_info {font-size:13px;}
+.player_item_list .layer_subscribe .sbc_info dt {color:#676768;font-weight:bold}
+.player_item_list .layer_subscribe .sbc_info dd {padding-top:4px;}
+.player_item_list .layer_subscribe .sbc_info dd ul { float: none;}
+.player_item_list .layer_subscribe .sbc_info dd ul li { padding-left:6px;margin:5px 0 0 0; color:#676768; line-height: normal;; background:url('../../../images/flashplayer/video/dot_1.gif') no-repeat 1px 4px}
+.player_item_list .layer_subscribe .sbc_info dd ul li span {color:#f64500}
+.player_item_list .layer_subscribe a.close {position:absolute; right:5px; top:6px; overflow:hidden; text-indent:-1111px; width:19px; height:19px; background:url('../../../images/flashplayer/video/video.png') no-repeat 4px -183px;}
+.player_item_list .layer_subscribe .arr {position:absolute; right:51px; top:-7px; display:block; overflow:hidden; text-indent:-1111px; width:13px; height:7px; background:url('../../../images/flashplayer/video/video.png') no-repeat 0 -108px; }
+
+.player_item_list .layer_originalbj { display: none; position:absolute; left:-100px;top:35px;min-width: 184px; z-index:60; padding:10px 10px 7px 10px; border:1px solid #adadad; border-radius:3px; background:#fff;}
+.player_item_list .layer_originalbj .memo {font-size:13px; line-height:1.3em; letter-spacing:-1px; padding:0 20px 5px 0; margin:0 0 8px; border-bottom:1px solid #e5e5e5; }
+.player_item_list .layer_originalbj .memo .nick {color:#3d82f6; font-weight:bold; display: inline-block;}
+.player_item_list .layer_originalbj .memo br { display: none; }
+.player_item_list .layer_originalbj .memo .em1 {color:#3d82f6; font-weight:bold;}
+.player_item_list .layer_originalbj .bjarea { position: relative; min-height: 33px; }
+.player_item_list .layer_originalbj .bjarea .bjlogo { position: absolute; left:0px; top: -2px; bottom:5px; padding:0;}
+.player_item_list .layer_originalbj .bjarea .bjlogo img {width:34px; height:34px; border-radius:34px; border:1px solid #e5e5e5; vertical-align:top;}
+.player_item_list .layer_originalbj .bjarea .nick {display:table; margin:0 0 0 45px; width: 115px; height: 33px; }
+.player_item_list .layer_originalbj .bjarea .nick a { display: table-cell; vertical-align: middle; font-size:14px; color:#3d82f6; font-weight:bold; line-height:1em;}
+.player_item_list .layer_originalbj .bjarea .fav { position: absolute; right: 5px; top: 50%; margin-top: -9px; width: 18px; height: 18px; }
+.player_item_list .layer_originalbj .bjarea .fav .icon {display:block; height: 100%; overflow:hidden; text-indent:-1111px; background:url('../../../images/flashplayer/video/video.png') no-repeat 0px -550px;}
+.player_item_list .layer_originalbj .bjarea .fav .icon.on {background-position:-20px -550px;}
+.player_item_list .layer_originalbj .bjarea .fav .icon a {display:block; height: 100%; }
+.player_item_list .layer_originalbj .bjarea .fav a.txt { font-size:0; letter-spacing:-1px; color:#888; display:inline-block; *display:inline; zoom:1; vertical-align:middle; padding:6px 0 0;}
+.player_item_list .layer_originalbj a.close {position:absolute; right:2px; top:1px; overflow:hidden; text-indent:-1111px; width:19px; height:19px; background:url('../../../images/flashplayer/video/video.png') no-repeat 4px -183px;}
+.player_item_list .layer_originalbj .arr {position:absolute; left:103px; top:-7px; display:block; overflow:hidden; text-indent:-1111px; width:13px; height:7px; background:url('../../../images/flashplayer/video/video.png') no-repeat 0 -108px;}
+
+.player_item_list .layer_dl {position:absolute; left:20px; top:50px; z-index:61; border:1px solid #ccc; background:#fff;}
+.player_item_list .layer_dl .stit {display:block; padding:10px 15px; font-family:nanumgothic,ng; font-weight:bold; color:#494949; border-bottom:1px solid #dcdcdc;}
+.player_item_list .layer_dl .list {width:296px; max-height:165px; overflow:auto;}
+.player_item_list .layer_dl .list ul {margin:13px 0; float: none; padding: 0 10px;  }
+.player_item_list .layer_dl li { display: block; line-height:1.3 ; margin: 0; padding:3px 65px 5px 12px;  position:relative; background:url('../../../images/flashplayer/video/video.png') no-repeat -52px -184px;}
+.player_item_list .layer_dl li:last-child {margin:0 0 13px;}
+.player_item_list .layer_dl li span {}
+.player_item_list .layer_dl li a {position:absolute; right:0px; top:3px; display:inline-block; *display:inline; zoom:1; font-size:11px; color:#3069f4; padding:2px 5px 0; border:1px solid #ccc; text-decoration:none;}
+.player_item_list .layer_dl a.close {position:absolute; right:0; top:0; overflow:hidden; text-indent:-1111px; width:31px; height:31px; background:url('../../../images/flashplayer/video/video.png') no-repeat 10px -178px;}
+.player_item_list .layer_dl .arr {position:absolute; left:35px; top:-7px; display:block; overflow:hidden; text-indent:-1111px; width:11px; height:7px; background:url('../../../images/flashplayer/video/video.png') no-repeat 0 -108px;}
+
+/* 탐방사절 z-index 30 */
+.player_item_list.preroll ul { display: none; }
+.player_item_list.preroll .text_output { display: block; }
+.player_item_list .text_output { display: none; position: absolute; z-index: 101; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(255,255,255,1)}
+.player_item_list .text_output p { padding: 0; margin: 0; font-size: 14px;  color: #3d82f6; text-align: center; line-height: 3.75; font-family: 'NG' , aria , AppleGothic ,sans-serif; }
+
+
+
+/* ********************************** */
+/* *********  전체화면 모드 ***********/
+.extend_mode { background-color: #000; }
+.extend_mode .videobox { z-index: 10000; overflow-y: hidden; bottom: 0; }
+.extend_mode.smode .videobox { z-index: 10000; }
+.extend_mode .videobox .embed {position: static;}
+.extend_mode #afreecatv_player {position: absolute !important; top: 0 !important; left: 0 !important; bottom: 0px !important; right: 0; margin: 0; max-height: none !important; }
+.extend_mode .tb_video #afreecatv_player {right: 0; }
+.extend_mode #afreecatv_player .btn_extend_mode { background-position: -150px 0px;}
+.extend_mode #afreecatv_player .btn_extend_mode:hover { background-position: -150px -25px;}
+.extend_mode #afreecatv_player .player_ctrlBox .right_ctrl {bottom: 10px;}
+.extend_mode #afreecatv_player .player_title{ display: block; }
+.extend_mode .ti_wrap3 ,
+.extend_mode .player_item_list .btn_video,
+.extend_mode .player_item_list .layer_originalbj,
+.extend_mode .player_item_list .layer_subscribe,
+.extend_mode .topbox ,
+.extend_mode #afreecatv_player .btn_smode { display: none !important; }
+.extend_mode .player_item_list { position:absolute; left: auto; bottom: -43px; right: 145px ; margin: 0; padding-top: 0; padding-bottom: 10px; color:#777; border-top: none; border-bottom: none; background-color: transparent; opacity: 0; filter: alpha(opacity=0); }
+.extend_mode .videowrap .player_item_list  { right: 100px ; bottom: -1px; }
+.extend_mode.video_mode .videowrap .player_item_list { right: 48px ; padding: 0; bottom: 11px; }
+.extend_mode.video_mode .videowrap .player_item_list.editangle  { right: 16px ; bottom: 11px; }
+.extend_mode.video_mode .videowrap .player_item_list.playbackrate { right: 76px ; }
+.extend_mode.video_mode .videowrap .player_item_list.statistics { right: 160px ; }
+.extend_mode.video_mode .videowrap .player_item_list.editangle.playbackrate ,
+.extend_mode.video_mode .videowrap .player_item_list.playbackrate.statistics { right: 196px ; }
+.extend_mode.video_mode .videowrap .player_item_list.editangle.statistics { right: 275px; }
+.extend_mode.video_mode .videowrap .player_item_list.editangle.playbackrate.statistics { right: 306px ; }
+.extend_mode.smode .player_item_list { left: auto; }
+.extend_mode .mouseover + .player_item_list,
+.extend_mode .player_item_list.mouseover { bottom: 0; opacity: 1; filter: alpha(opacity=100); z-index: 1000;  }
+.extend_mode .player_item_list .layer_tooltip {right: 0 !important;}
+.extend_mode #afreecatv_player_video { max-width: auto;}
+.extend_mode .player_item_list.preroll { overflow: hidden;  left: 0 ; right: 0 !important; bottom: 0 !important; padding: 0; width: 200px; height: 0; margin: 0 auto; background: transparent; }
+.extend_mode .player_item_list.preroll ul { display: none; }
+.extend_mode .player_item_list.preroll .text_output { background-color: transparent; border-top: none; }
+.extend_mode .player_item_list.preroll .text_output p { color: rgba(255,255,255,.7); line-height: 2.6; }
+.extend_mode .player_item_list.preroll.mouseover { opacity: 1; height: 37px; }
+/* *********  전체화면 채팅 오픈을 위한 smode  풀스크린에서 씨네마모드 ***********/
+.smode.extend_smode #afreecatv_player .btn_smode { display: none; }
+.smode.extend_smode #afreecatv_player .btn_extend_mode { background-position: -150px 0px; }
+.smode.extend_smode #afreecatv_player .btn_extend_mode:hover { background-position: -150px -25px; }
+
+
+
+/* preroll */
+
+/* 비디오 모드 관련 플레이어 , 채팅 위치 수정 */
+.video_mode.chat_open .bg_dark { width: auto; right: 300px; }
+.video_mode.chat_open .videowrap  .bg_dark { right: 0; }
+.video_mode.chat_open .layer_l { margin-left: -340px !important; }
+.video_mode.chat_open .layer_s { margin-left: -291px !important; }
+.video_mode.embeded_mode.chat_open .layer_l { width: 320px; margin-left: -312px !important; }
+.video_mode.chat_open #afreecatv_player { right: 300px !important; width: auto !important;}
+
+
+
+/*비디오 모드 버튼 리스트 출력위치 */
+/* .videowrap .player_item_list ,
+.videowrap .player_item_list ul { height: 0; padding: 0; }
+.videowrap .player_item_list .layer_tooltip { bottom: -58px; }
+.videowrap .player_item_list .layer_tooltip.on {bottom: 0;}
+.chat_open .videowrap .player_item_list .layer_tooltip { right: 300px; } */
+
+/*비디오 비디오 전체화면모드*/
+.extend_mode.video_mode .htmlplayer_wrap ,
+.extend_mode.video_mode .htmlplayer_content {height: 100% !important; }
+.extend_mode.video_mode.chat_open .chatbox { display: block !important;}
+
+
+
+
+
+/* ********************************** */
+/* *********  씨네마 모드 *********** */
+.smode { background-color: #000; outline: none; border-right: 1px solid #000; }
+.smode .videobox {z-index: 1001; overflow-y: auto; bottom: 0; }
+.smode .videobox .embed {position: static;}
+.smode #afreecatv_player {position: absolute !important; top: 0 !important; left: 0 !important; bottom: 54px; right: 0; margin: 0; max-height: none !important; }
+.smode #afreecatv_player.video {bottom: 0 ;}
+.smode .videowrap #afreecatv_player.video {bottom: 54px;}
+.smode .tb_video #afreecatv_player {right: 0; }
+.smode .tb_chat #afreecatv_player {right: 300px; }
+.smode .tb_chat .player_item_list .layer_tooltip {right: 300px !important;}
+.smode #afreecatv_player .btn_smode { background-position: -100px 0px;}
+.smode #afreecatv_player .btn_smode:hover { background-position: -100px -25px;}
+.smode #afreecatv_player .player_title{ display: block; }
+.smode .player_item_list { position:absolute; bottom: 0px;  z-index: 52; right: 0px; left: 0; margin: 0; color:#777; border-top: none; border-bottom: none; background-color: transparent; }
+.smode .player_item_list.mouseover { opacity: 1; filter: alpha(opacity=100);  }
+.smode .player_item_list button {color:#777;}
+.smode .player_item_list .text_output { background-color: #000; border-top: 1px solid #171717; }
+.smode .player_item_list .text_output p { color: rgba(255,255,255,.7); }
+.smode .bj_vod, .smode .btn_player_wrap, .smode .airinfo, .smode .listbox, .smode .favbox, .smode .topbox , .smode .bjvideo , .smode  .cmtbox , .smode .videowrap .player_item_list .btn_video, .smode .videowrap .player_item_list .layer_subscribe, .smode .videowrap .player_item_list .layer_originalbj {display:none !important;}
+
+/* ********************************** */
+/* *********  임베디드 모드 *********** */
+.embeded_mode { background-color: #000; }
+.embeded_mode #afreecatv_player {position: absolute !important; top: 0 !important; left: 0 !important; bottom: 0px !important; right: 0; max-height: none !important; min-width: auto;}
+.embeded_mode #afreecatv_player .player_ctrlBox .btn_afreecatv ,.embeded_mode #afreecatv_player .player_ctrlBox .btn_share {display:block;}
+.embeded_mode #afreecatv_player .player_title {display: block; z-index: 41;}
+.embeded_mode .videobox {z-index: 10000; overflow-y: auto; bottom: 0;}
+.embeded_mode .videobox .embed {position: static;}
+.embeded_mode #afreecatv_player .btn_smode,
+.embeded_mode #afreecatv_playerv .quality_box,
+.embeded_mode #afreecatv_playerv .setting_box,
+.embeded_mode #afreecatv_playerv .edit_angle_box,
+.embeded_mode .player_item_list { display: none !important;}
+.embeded_mode .float_box { max-height: none; }
+@media screen and  (max-width: 639px) {
+	.embeded_mode.video_mode #afreecatv_player .player_ctrlBox .btn_afreecatv ,
+	.embeded_mode.video_mode #afreecatv_player .player_ctrlBox .quality_box ,
+	.embeded_mode.video_mode #afreecatv_player .player_ctrlBox .volume.bar_show + .time_display { display: none !important;}
+}
+@media screen and (min-width: 639px) {
+    .embeded_mode.video_mode.chat_open .btn_afreecatv,
+    .embeded_mode.video_mode.chat_open .volume.bar_show + .time_display { display: none !important; }
+}
+
+/* ****************************** */
+/* *********  VR 모드 *********** */
+.vr_player { display: none; }
+.vr_mode #afreecatv_player { position: absolute !important; top: auto !important; left: auto !important; min-width: auto; width: 400px; max-height: none !important; bottom: 54px; right: 0; }
+.vr_mode #afreecatv_player .afreecatv_player_size {padding-bottom: 56.25%;}
+.vr_mode .vr_player { display: block; position: relative; padding-bottom: 56.25%; max-height: 760px; }
+.vr_mode .vr_player embed,
+.vr_mode .vr_player video,
+.vr_mode .vr_player iframe { position: absolute; top: 0; left: 0; right: 0; bottom: 0; width: 100%; height: 100%; }
+
+
+.extend_mode.vr_mode .vr_player , .smode.vr_mode .vr_player { height: 100%; max-height: none;: auto; padding: 0;}
+.extend_mode.vr_mode #afreecatv_player {bottom: 50px !important;}
+.extend_mode.vr_mode .player_item_list {right: 0; opacity:1; filter: alpha(opacity=100); }
+
+/***************************************************/
+/* *********  임베디드 & 전체화면 모드 *********** */
+.embeded_mode.extend_mode #afreecatv_player .player_ctrlBox .right_ctrl { bottom: 10px; }
+/***************************************************/
+
+/* ********************************** */
+/* *********  동영상 시청페이지 미니모드 관련 *********** */
+
+/* 다음영상보기 틀어짐 해결 */
+.mini_mode #afreecatv_player .nextvideo .tit { top: 5%; font-size: 15px; }
+.mini_mode #afreecatv_player .nextvideo .stit { top: 17%; font-size: 18px; }
+.mini_mode #afreecatv_player .nextvideo .stinextplay { margin-top: -20px; }
+.mini_mode #afreecatv_player .nextvideo .nextplay { top: 33%; margin-left: -19px; }
+.mini_mode #afreecatv_player .nextvideo .nextplay a { width: 38px; height: 44px; background: url('../../../images/afreecatv_player/split_player.png') no-repeat -225px -50px; }
+.mini_mode #afreecatv_player .nextvideo .cancel a { font-size: 12px; padding: 0 10px; line-height: 30px;  }
+.mini_mode #afreecatv_player .nextvideo .timer { top: 83%; font-size: 13px; line-height: 1.2; }
+.mini_mode #afreecatv_player .recommend_broadcast { display: none !important; }
+.mini_mode #afreecatv_player {}
+
+.mini_mode #afreecatv_player button.promotion_area_left ,
+.mini_mode #afreecatv_player button.promotion_area_right { height: 25px; padding: 0 5px; }
+.mini_mode #afreecatv_player button.promotion_area_right em,
+.mini_mode #afreecatv_player button.promotion_area_left em,
+.mini_mode #afreecatv_player button.promotion_area_left span,
+.mini_mode #afreecatv_player button.promotion_area_right span { font-size: 12px; }
+.mini_mode #afreecatv_player button.promotion_area_left span  { background-position: 42px 2px; }
+.mini_mode .btn_share ,
+.mini_mode .btn_smode ,
+.mini_mode .quality_box ,
+.mini_mode .setting_box ,
+.mini_mode .edit_angle_box ,
+.mini_mode .btn_chat,
+.mini_mode .volume.bar_show + .time_display,
+.mini_mode .btn_statistics,
+.mini_mode .statistics_list,
+.mini_mode .statistics_graph ,
+.mini_mode #afreecatv_player .graph_wrap  ,
+.mini_mode #afreecatv_player .statistics_list  ,
+.mini_mode #afreecatv_player .statistics_section,
+.mini_mode #afreecatv_player .statistics_point  { display: none !important;}
+.mini_mode #afreecatv_player .video_blind .content .type_adult_skip br ,
+.mini_mode #afreecatv_player .video_blind .content .type_adult_skip .strong  { display: none; }
+.mini_mode #afreecatv_player .video_blind .content .type_adult_skip h2 { width: 30px; height: 30px; margin: 0 auto; background-size: 100%;}
+.mini_mode #afreecatv_player .video_blind .content .type_adult_skip p { font-size: 12px; }
+
+/* ******************************** */
+/* ****대쉬보드 아이프레임 관련 ***** */
+.dashboard_mode #afreecatv_player { bottom: 0;}
+.dashboard_mode .videobox{ position: absolute; top: 0; left: 0; right: 300px; z-index: 89; bottom: 0; overflow: hidden; }
+.dashboard_mode.extend_mode .videobox { z-index: 92; }
+.dashboard_mode.extend_mode.smode .videobox { right: 300px; }
+.dashboard_mode .chatbox ,
+.dashboard_mode.extend_mode.smode .chatbox { display: block !important;}
+.dashboard_mode.extend_mode .chatbox { display: none !important; }
+.dashboard_mode .player_item_list ,
+.dashboard_mode .btn_smode {display: none;}
+
+
+
+/*프리캡 관련 */
+.extend_mode #afreecatv_player_freecap,
+.smode #afreecatv_player_freecap,
+.smode #afreecatv_player.freecap { position: absolute !important; top: 0 !important; left: 0 !important; bottom: 0px !important; right: 0; margin: 0 !important; max-height: none !important; }
+.chat_open #afreecatv_player.freecap{ margin-right: 0 !important;}
+#afreecatv_player.freecap .btn_afreecatv,
+#afreecatv_player.freecap .btn_smode,
+#afreecatv_player.freecap .btn_chat { display: none !important; }
+#afreecatv_player.freecap .progress ,
+#afreecatv_player.freecap .time_display {display: block;}
+
+/*// 모드별 공통*/
+.smode .airinfo , .smode .bj_vod , .smode .ti_wrap1 , .smode .bjvideo , .smode .cmtbox ,
+.extend_mode .airinfo , .extend_mode .bj_vod , .extend_mode .ti_wrap1 , .extend_mode .bjvideo , .extend_mode .cmtbox {display: none !important;}
+.extend_mode .contbox , .embeded_mode .contbox , .smode .contbox {top:0;}
+.extend_mode , .embeded_mode , .smode, .embeded_mode { background-color: #000; }
+
+.embeded_mode .cb_chat .videobox ,
+.smode .cb_chat .videobox ,
+.embeded_mode .cb_chat_list .videobox ,
+.smode .cb_chat_list .videobox {right:300px;}
+.extend_mode .videobox,
+.extend_mode .cb_list .videobox,
+.extend_mode .cb_video .videobox,
+.embeded_mode .cb_list .videobox,
+.embeded_mode .cb_video .videobox,
+.smode .cb_list .videobox,
+.smode .cb_video .videobox ,
+.smode.extend_mode .videobox {right:0;}
+.extend_mode.chat_open .chatbox,
+.embeded_mode.chat_open .chatbox ,
+.smode.chat_open .chatbox {right:0;}
+.extend_mode .chatbox , .smode .chatbox {border-left:1px solid #000; z-index: 1001;}
+.extend_mode .videobox .htmlplayer_wrap , .embeded_mode .videobox .htmlplayer_wrap , .smode .videobox .htmlplayer_wrap {margin:0; width:100%; height:100%;}
+.extend_mode .videobox .htmlplayer_content, .embeded_mode .videobox .htmlplayer_content, .smode .videobox .htmlplayer_content {padding:0; width:100%; height:100%}
+
+.extend_mode .player_item_list button ,
+.embeded_mode .player_item_list button ,
+.smode .player_item_list button {color:#777;}
+
+.extend_mode .player_item_list .layer_tooltip ,
+.embeded_mode .player_item_list .layer_tooltip ,
+.smode .player_item_list .layer_tooltip { position: fixed; top: auto; bottom: -100px; right: 0px; z-index: -1; }
+
+.extend_mode .player_item_list .layer_tooltip.on ,
+.embeded_mode .player_item_list .layer_tooltip.on ,
+.smode .player_item_list .layer_tooltip.on { top: auto; bottom: 50px; }
+
+.extend_mode .cb_list .player_item_list .layer_tooltip ,
+.embeded_mode .cb_list .player_item_list .layer_tooltip ,
+.smode .cb_list .player_item_list .layer_tooltip { right: 0; }
+
+.extend_mode .cb_chat .player_item_list .layer_tooltip ,
+.embeded_mode .cb_chat .player_item_list .layer_tooltip ,
+.smode .cb_chat .player_item_list .layer_tooltip ,
+.smode .cb_chat_list .player_item_list .layer_tooltip {right: 300px;}
+@media (max-width: 857px) {
+	.player_item_list .layer_tooltip { right:0px !important;}
+	.chat_open.video_mode .player_item_list .layer_tooltip { right:300px !important;}
+}
+@media screen and (max-width: 1080px) {
+    .smode .videowrap .cb_chat .videobox ,
+    .smode .videowrap .cb_chat_list .videobox {right: 0;}
+}
+
+.extend_mode .player_item_list ul li button span,
+.embeded_mode .player_item_list ul li button span,
+.smode .player_item_list ul li button span { overflow: hidden; padding: 0; text-indent: -9999em; font: 0/0 a; display: none;}
+
+.extend_mode .player_item_list ul li button em,
+.embeded_mode .player_item_list ul li button em,
+.smode .player_item_list ul li button em { background-position-y: -120px; }
+.extend_mode .player_item_list ul li button:hover em ,
+.embeded_mode .player_item_list ul li button:hover em ,
+.smode .player_item_list ul li button:hover em ,
+.extend_mode .player_item_list ul li button.on em,
+.embeded_mode .player_item_list ul li button.on em,
+.smode .player_item_list ul li button.on em { background-position-y: -200px;  }
+
+.extend_mode .player_item_list ul li button.off em,
+.smodembeded_modee .player_item_list ul li button.off em,
+.smode .player_item_list ul li button.off em { background-position-y: -40px !important;  }
+.extend_mode .player_item_list ul li button.off span,
+.embeded_mode .player_item_list ul li button.off span,
+.smode .player_item_list ul li button.off span { color:#444; }
+
+
+
+
+/* 광고영역 */
+#afreecatv_player.promotion .video_thumbnail span { display: none !important; }
+#afreecatv_player .promotion_area,
+#afreecatv_player .promotion_area_left,
+#afreecatv_player .promotion_area_right { -webkit-transition: all 0.3s ease; -moz-transition: all 0.3s ease; -o-transition: all 0.3s ease; transition: all 0.3s ease; }
+#afreecatv_player .promotion_area { position: absolute; z-index: 19; top: 0;left: 0; right: 0; bottom: 0px;  }
+#afreecatv_player.mouseover .promotion_area {bottom: 40px;}
+#afreecatv_player.video.mouseover .promotion_area { bottom: 50px; }
+#afreecatv_player .promotion_area_left,
+#afreecatv_player .promotion_area_right { bottom: 10px; }
+#afreecatv_player.mouseover .promotion_area_left,
+#afreecatv_player.mouseover .promotion_area_right { bottom: 40px; }
+#afreecatv_player.video.mouseover .promotion_area_left,
+#afreecatv_player.video.mouseover .promotion_area_right { bottom: 50px; }
+.smode #afreecatv_player.mouseover .promotion_area ,
+.extend_mode #afreecatv_player.mouseover .promotion_area {bottom: 65px;}
+#afreecatv_player .promotion_area a { position: absolute; z-index: 19; height: 100%; width: 100%; overflow: hidden;  text-indent: -9999em;}
+#afreecatv_player .promotion_area button,
+#afreecatv_player .promotion_area_left,
+#afreecatv_player .promotion_area_right {
+    display: none;
+	position: absolute; z-index: 51; height: 31px; bottom: 10px; padding: 0 12px; border: 1px solid #000;
+	font-family: dotum , '돋움'; background-color: rgba(0,0,0,.6);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";
+	*padding-top: 6px;
+}
+
+#afreecatv_player .promotion_area button span,
+#afreecatv_player .promotion_area_left span,
+#afreecatv_player .promotion_area_right span { position: relative; color: #12e3fc; font-size: 15px; vertical-align: middle; }
+#afreecatv_player .promotion_area button em ,
+#afreecatv_player .promotion_area_left em ,
+#afreecatv_player .promotion_area_right em { position: relative;  color:#fff; font-style: normal; font-size: 13px; vertical-align: middle;  }
+#afreecatv_player .promotion_area .promotion_area_left,
+#afreecatv_player button.promotion_area_left { left:20px; }
+#afreecatv_player .promotion_area .promotion_area_left span ,
+#afreecatv_player button.promotion_area_left span  { padding-right: 20px; background: url('../../../images/afreecatv_player/arrow_ad_area.png') no-repeat 47px center; }
+#afreecatv_player .promotion_area .promotion_area_right ,
+#afreecatv_player button.promotion_area_right { right:20px; }
+#afreecatv_player .promotion_area .promotion_area_right span ,
+#afreecatv_player button.promotion_area_right span { color: #fff; }
+#afreecatv_player .promotion_area .promotion_area_right em ,
+#afreecatv_player button.promotion_area_right em { color: #12e3fc; font-size: 15px; padding: 0;}
+html[lang="en"] #afreecatv_player button.promotion_area_right em,
+html[lang="th"] #afreecatv_player button.promotion_area_right em,
+html[lang="ja"] #afreecatv_player button.promotion_area_right em{margin:-5px 3px 0 3px;vertical-align:middle;display:inline-block;}
+
+
+/* 광고 방송 영역시 컨트롤 밀리는 현상 해결을 위한 클레스 */
+#afreecatv_player.prad .player_ctrlBox{z-index:51}
+#__DAWIN3_VIDEO__ , #__DAWIN3_OVERLAY__ ,#__DAWIN3_CLICK__{width: 100% !important; height: 100% !important; margin: 0 !important;  }
+#extensionSkip , #extensionTime , #extensionSkipWait { bottom: 10px !important; -webkit-transition: all 0.3s ease; -moz-transition: all 0.3s ease; -o-transition: all 0.3s ease; transition: all 0.3s ease; }
+.mouseover #extensionSkip , .mouseover  #extensionTime , .mouseover #extensionSkipWait { bottom: 50px !important; }
+
+
+/*****************************************/
+/*****************************************/
+/*****************************************/
+/*****************************************/
+/*****************************************/
+/*****************************************/
+/* ************ 동영상 영역 ************ */
+#afreecatv_player.video { bottom: 0; }
+#afreecatv_player.video .btn_chat,
+#afreecatv_player.video .progress {display: block;}
+#afreecatv_player.video .player_ctrlBox .ctrl {margin-top: 0;}
+#afreecatv_player.video .player_ctrlBox .volume .volume_handler { background-position: 0 -99px; top: -3.5px; }
+/* #afreecatv_player.video .btn_smode { width: 22px; background-position: -299px 0; }
+#afreecatv_player.video .btn_smode:hover { background-position: -299px -25px; }
+.smode #afreecatv_player.video .btn_smode { width: 22px; background-position: -325px 0; }
+.smode #afreecatv_player.video .btn_smode:hover { background-position: -325px -25px; } */
+#afreecatv_player.video .player_ctrlBox .bnt_next_play  ,
+#afreecatv_player.video .player_ctrlBox .btn_refresh  ,
+#afreecatv_player.video .player_ctrlBox .time_display {display: block;}
+#afreecatv_player.video .quality_box { display: block; }
+
+/*progress bar*/
+#afreecatv_player .progress { position: relative; display: none; padding: 8px 0 ; cursor: pointer; }
+#afreecatv_player .progress .progress_track {position: relative;  height: 3px; background-color: #434343; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; }
+#afreecatv_player .progress .progress_track .progress_bar {position: absolute; height: 100%; background-color: rgba(255,255,255,.3); -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; }
+#afreecatv_player .progress .progress_track .watched { position: absolute; z-index: 4; height: 100%; background-color: #2cc6ff; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; }
+#afreecatv_player .progress .progress_track .handler {opacity: ; filter:alpha(opacity=100); position: absolute; z-index: 7; margin-left: -6px; top: -4px; width: 13px; height: 13px; cursor: pointer; }
+#afreecatv_player .progress .progress_track .handler span { position: relative; display: block; height: 13px; width: 13px; opacity: 0; background-position: 0 -125px; opacity: 0; filter:alpha(opacity=0); -webkit-transition: all 0.3s ease; -moz-transition: all 0.3s ease; -o-transition: all 0.3s ease; transition: all 0.3s ease; }
+#afreecatv_player .progress .progress_track .download{position: absolute; z-index: 2; left: 0;top: 0; height: 100%; background-color: #fff; opacity: .8; filter:alpha(opacity=80); -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; }
+#afreecatv_player .progress .progress_track .picker {position: absolute; top: -18px; width: 9px; height: 21px; margin-left: -5px; }
+#afreecatv_player .progress .progress_track .picker path { fill: #ff5b5b; }
+#afreecatv_player .progress .progress_track .picker:first-child path { fill: #198bff; }
+#afreecatv_player .progress .progress_track .picker svg {position: relative;}
+#afreecatv_player .progress .progress_track .video_thumbnail { display: none; overflow: hidden; position: absolute; top:-90px; left: 50%; z-index: 1; margin-left: -65px;  width: 0px; height: 0px; background-position: center; }
+#afreecatv_player .progress .progress_track .video_thumbnail div { opacity: 0; filter: alpha(opacity=0);  position: absolute; top: 0;left: 0;right: 0; bottom: 0; border: 2px solid #303030;}
+#afreecatv_player .progress .progress_track .video_thumbnail span { position: absolute; bottom: 5px; left: 0; right: 0; width: 100%; text-align: center;}
+#afreecatv_player .progress .progress_track .video_thumbnail span em { display: inline-block !important; padding: 0 5px; opacity: .8; filter: alpha(opacity=80); color: #fff; font-style: normal;  background-color: #000; font-size: 12px; height: 18px; line-height: 22px; }
+
+#afreecatv_player .progress .progress_track .video_thumbnail.time { top: -25px; margin-left: -40px;  }
+#afreecatv_player .progress .progress_track .video_thumbnail.time span { bottom: 0; }
+#afreecatv_player .progress .progress_track .video_thumbnail.time .thumb {display: none;}
+@media screen and (-webkit-min-device-pixel-ratio:0) { #afreecatv_player .progress .progress_track .video_thumbnail span em  { line-height: 20px; } }
+@-moz-document url-prefix() { #afreecatv_player .progress .progress_track .video_thumbnail span em  { line-height: 20px; } }
+
+
+#afreecatv_player .progress .progress_track .ending_credit_bar { position: absolute; top: 0; bottom: 0; height: 100%; background-color: #11c21a; z-index: 6; }
+#afreecatv_player .progress .progress_track .highlight_bar { position: absolute; top: 0; bottom: 0; height: 100%; background-color: #fa0000; z-index: 5; }
+#afreecatv_player .progress .progress_track .edit_angle_track { position: absolute; top: -1px;  height: 5px; background-color: #ffc600; z-index: 2; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px }
+#afreecatv_player .progress.edit_angle .progress_track .watched { height: 5px; top: -1px; background-color: #fff; }
+/* #afreecatv_player .progress.edit_angle .progress_track .download { height: 5px; top: -1px; background-color: #ffc600;} */
+#afreecatv_player .progress.edit_angle .progress_track .handler span { background-position: -20px -125px ; }
+
+#afreecatv_player .progress .progress_track .statistics_point { position: absolute; left: 0; z-index: 20; width: 14px; top: -1px; bottom: 0; margin-left: -6px;  cursor: pointer; overflow: visible;}
+#afreecatv_player .progress .progress_track .statistics_point em { position: absolute; width: 2px; left: 6px; top: 0; bottom: 0; height: 100%; background-color: #00ff78; margin-left: 0px; }
+#afreecatv_player .progress .progress_track .statistics_point span { position: absolute; border: 7px solid transparent; border-bottom: none; border-top: 8px solid #00ff78; top: -13px; left: 0; }
+
+
+
+#afreecatv_player .progress:hover {padding: 7px 0;}
+#afreecatv_player .progress:hover .progress_track { height: 5px; }
+#afreecatv_player .progress:hover .progress_track .video_thumbnail { display: block; width: 130px; height: 73px; }
+#afreecatv_player .progress:hover .progress_track .video_thumbnail.time { width: 80px; height: 18px; }
+#afreecatv_player.mouseover .progress:hover .progress_track .video_thumbnail div{  opacity: 1; filter: alpha(opacity=100); position: absolute; top: 0;left: 0;right: 0; bottom: 0; border: 2px solid #303030; }
+#afreecatv_player .progress:hover .progress_track .handler span {opacity: 1; filter:alpha(opacity=100); }
+#afreecatv_player .progress:hover .progress_track .picker {top: -16px;}
+
+#afreecatv_player .progress.edit_angle:hover .progress_track .watched ,
+#afreecatv_player .progress.edit_angle:hover .progress_track .download ,
+#afreecatv_player .progress:hover .progress_track .edit_angle_track { height: 7px; top: -1px; }
+
+/*ending_credit*/
+#afreecatv_player .ending_credit { display: none; position: absolute; z-index: 5; top: 0; left: 0; right: 0; bottom: 0; background-color: #000; text-align: center;  }
+#afreecatv_player .ending_credit * { font-family: 'NG' , AppleGothic ; }
+#afreecatv_player .ending_credit .ending_credit_content { position: absolute; top: 100%; left: 0; right: 0; bottom: 0; }
+#afreecatv_player .ending_credit h2,
+#afreecatv_player .ending_credit h3 { font-size: 22px; font-weight: bold; color: #fff; padding: 25px 0 10px;  }
+#afreecatv_player .ending_credit p { font-size: 18px; color: #fff; line-height: 1.6; }
+#afreecatv_player .ending_credit ul {margin: 0;padding: 0; list-style: none;}
+#afreecatv_player .ending_credit li { font-size: 17px; margin-bottom: 20px;}
+#afreecatv_player .ending_credit li span { display: block; margin-bottom: 5px; }
+#afreecatv_player .ending_credit li span strong,
+#afreecatv_player .ending_credit li span em {  color:#6bd900; font-size: 17px;}
+#afreecatv_player .ending_credit li p { margin-bottom: 10px; color: #888; font-size: 13px; }
+#afreecatv_player .ending_credit .ending_credit_content div {margin: 10px 30px; color: #fff; }
+#afreecatv_player .ending_credit div span { font-size: 14px; color: #fff; padding: 0 5px; }
+
+.smode #afreecatv_player .player_title ,
+.extend_mode #afreecatv_player .player_title ,
+.embeded #afreecatv_player .player_title { display: none; }
+
+
+/* 웹의 동영상시청페이지에서만 출력 */
+.videowrap .player_item_list .btn_video ,
+.videowrap .player_item_list .layer_subscribe ,
+.videowrap .player_item_list .layer_originalbj  { display: block;}
+/* 웹의 동영상시청페이지에서만 미출력 */
+.videowrap #afreecatv_player .btn_chat  { display: none; }
+
+/* 공유버튼 스타일 통일로 인한 스타일 공유하기 레이어 깨짐 해결 */
+.share_area { width: auto !important; margin: auto !important;	}
+
+/*
+ * @ VR 컨트롤
+ */
+.control-vr {position:absolute; top:16px; right:22px; width:60px; height:60px; z-index:51;}
+.control-vr .control-box {}
+.control-vr .control-box .body {overflow:hidden; background:rgba(255,255,255,.2); width:60px; height:60px; border-radius:50%;
+	-webkit-box-shadow:0 0 3px rgba(0,0,0,.11); -moz-box-shadow:0 0 3px rgba(0,0,0,.11); -ms-box-shadow:0 0 3px rgba(0,0,0,.11); -o-box-shadow:0 0 3px rgba(0,0,0,.11); box-shadow:0 0 3px rgba(0,0,0,.11);
+}
+.control-vr .control-box .body .direction {position:absolute; top:0; left:0; background:rgba(255,255,255,.1); width:30px; height:30px; border-radius:100% 0 0 0; z-index:5; font:0/0 a;
+	-moz-transform-origin:100% 100% 0; -webkit-transform-origin:100% 100% 0; -o-transform-origin:100% 100% 0; transform-origin:100% 100% 0;
+	-webkit-transform:rotate(45deg); -moz-transform:rotate(45deg); -ms-transform:rotate(45deg); -o-transform:rotate(45deg); transform:rotate(45deg);
+	-webkit-transition: all 0.15s; -moz-transition: all 0.15s; -ms-transition: all 0.15s; -o-transition: all 0.15s; transition: all 0.15s;
+}
+.control-vr .control-box:hover .body .direction {background:rgba(255,255,255,.25);}
+.control-vr .control-box button {position:absolute; font:0/0 a; z-index:6;}
+.control-vr .control-box button span {display:block; position:relative; background:url('../../../images/afreecatv_player/img_player_vr_arrow.png') 50% 50% no-repeat; width:14px; height:20px; font: 0/0 a;}
+#afreecatv_player .control-vr .control-box button.top {top:0; left:50%; margin-left:-8px;
+	-webkit-transform:rotate(-90deg); -moz-transform:rotate(-90deg); -ms-transform:rotate(-90deg); -o-transform:rotate(-90deg); transform:rotate(-90deg);
+}
+#afreecatv_player .control-vr .control-box button.bottom {bottom:0; left:50%; margin-left:-7px;
+	-webkit-transform:rotate(90deg); -moz-transform:rotate(90deg); -ms-transform:rotate(90deg); -o-transform:rotate(90deg); transform:rotate(90deg);
+}
+#afreecatv_player .control-vr .control-box button.left {top:50%; left:0; margin-top:-10px;
+	-webkit-transform:rotate(-180deg); -moz-transform:rotate(-180deg); -ms-transform:rotate(-180deg); -o-transform:rotate(-180deg); transform:rotate(-180deg);
+}
+#afreecatv_player .control-vr .control-box button.right {top:50%; right:0; margin-top:-10px;}
+
+
+@-webkit-keyframes spin {
+	0%  { transform: rotateZ(0deg); -webkit-transform: rotateZ(0deg); -moz-transform: rotateZ(0deg); -o-transform: rotateZ(0deg); }
+	100% {transform: rotateZ(360deg); -webkit-transform: rotateZ(360deg); -moz-transform: rotateZ(360deg); -o-transform: rotateZ(360deg); }
+}
+@keyframes spin {
+	0%  {transform: rotateZ(0deg); -webkit-transform: rotateZ(0deg); -moz-transform: rotateZ(0deg); -o-transform: rotateZ(0deg); }
+	100% {transform: rotateZ(360deg); -webkit-transform: rotateZ(360deg); -moz-transform: rotateZ(360deg); -o-transform: rotateZ(360deg); }
+}
+
+
+
+
+/* 다음 동영상 2017-04-19 추가 */
+#afreecatv_player .nextvideo {display:none; position:absolute; left:0; top:0; right:0; bottom:0; z-index:40;  font-family:'NG',AppleGothic; background-size:100% !important; background-position: center !important; background-repeat:no-repeat !important;}
+#afreecatv_player .nextvideo dl { margin: 0;}
+#afreecatv_player .nextvideo .tit {position:absolute; left:0; right:0; top:22%; z-index:1; text-align:center; font-size:18px; color:#ccc; }
+#afreecatv_player .nextvideo .stit {position:absolute; left:20px; right:20px; top:30%; z-index:1; text-align:center; font-size:28px; line-height:1.2em; color:#fff; font-family:nanumgothic,ng; margin:0; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;} /* 2017-05-16 수정 */
+#afreecatv_player .nextvideo .nextplay {position:absolute; left:50%; top:43%; z-index:1; margin:0 0 0 -29px;}
+#afreecatv_player .nextvideo .nextplay a {display:block; overflow:hidden; text-indent:-1111px; width:61px; height:70px;
+	background: url('../../../images/afreecatv_player/split_player.png') no-repeat -225px -150px;}
+#afreecatv_player .nextvideo .cancel {position:absolute; left:0; right:0; top:62%; z-index:1; text-align:center; }
+#afreecatv_player .nextvideo .cancel a {display:inline-block; font-size:20px; color:#fff; font-style:normal; line-height:40px; padding:0 23px; text-decoration:none; border-radius:18px; background: #5c5c5c; background: rgba(255,255,255,0.2); }
+#afreecatv_player .nextvideo .timer ,
+#afreecatv_player .nextvideo .pause_text {position:absolute; right:0; left: 0;  top:78%; z-index:1; text-align:center; font-size:18px; color:#ccc; }
+#afreecatv_player .nextvideo .timer em {color:#ffc000; font-style:normal;}
+#afreecatv_player .nextvideo .bg {position:absolute; left:0; top:0; right:0; bottom:0;
+	background: #000;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; /* IE8  */
+	filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50); /* IE7 */
+    background: rgba(0,0,0,0.5);
+}
+#afreecatv_player.play_start .nextvideo { cursor: pointer; }
+#afreecatv_player.play_start .nextvideo:hover a { background-position: -225px -221px ;}
+#afreecatv_player.play_start .nextvideo .tit ,
+#afreecatv_player.play_start .nextvideo .stit ,
+#afreecatv_player.play_start .nextvideo .cancel ,
+#afreecatv_player.play_start .nextvideo .timer { display: none; }
+#afreecatv_player.play_start .player_title { top: 0; }
+@media screen and (max-width:1000px) {
+	#afreecatv_player .nextvideo .stit {font-size:24px;}
+	#afreecatv_player .nextvideo .cancel {top:67%;}
+	#afreecatv_player .nextvideo .nextplay {top:50%; margin:-13px 0 0 -19px;}
+	#afreecatv_player .nextvideo .nextplay a {width:38px; height:44px; background: url('../../../images/afreecatv_player/split_player.png') no-repeat -225px -50px;}
+	#afreecatv_player .nextvideo .cancel a {font-size:15px; line-height:30px; padding:0 17px; border-radius:14px;}
+	#afreecatv_player .nextvideo .timer { top: 83%; font-size: 14px; }
+	#afreecatv_player .nextvideo .pause_text { top: 83%; font-size: 14px; }
+    #afreecatv_player.play_start .nextvideo:hover a { background-position: -297px -235px ;}
+}
+
+/* 별풍선 애니메이션 2017-04-19 추가 */
+#afreecatv_player .stargift_invideo {position:absolute; right:10px; bottom:10px; z-index:52; display:none; margin:5px 0; padding:10px 32px 8px 65px; border-radius:20px;
+	background: #000;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)"; /* IE8  */
+	filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=70); /* IE7 */
+    background: rgba(0,0,0,0.7);
+}
+#afreecatv_player .stargift_invideo .sname {display:block; color:#ababab; padding:0 0 3px;}
+#afreecatv_player .stargift_invideo .sname em {font-weight:bold; color:#00a8ff; font-style:normal;}
+#afreecatv_player .stargift_invideo .memo {display:block; color:#ababab;}
+#afreecatv_player .stargift_invideo .memo em {font-weight:bold; color:#ff6600; font-style:normal;}
+#afreecatv_player .stargift_invideo .balloon img {width:55px; height:55px;}
+#afreecatv_player .stargift_invideo .close {position:absolute; right:0; top:-6px; z-index:9;}
+#afreecatv_player .stargift_invideo .close a {display:block; overflow:hidden; text-indent:-1111px; width:19px; height:19px; background:url('../../../images/afreecatv_player/split_player.png') no-repeat -300px -150px;}
+
+#afreecatv_player .stargift_invideo .balloon {position:absolute; top:-5px; left:4px; width:55px; height:55px; background-image : url('../../../images/afreecatv_player/video_balloon.png'); background-repeat: no-repeat;}
+#afreecatv_player .stargift_invideo .balloon.case1 { background-position: 0 0;}
+#afreecatv_player .stargift_invideo .balloon.case2 { background-position: 0 -55px;}
+#afreecatv_player .stargift_invideo .balloon.case3 { background-position: 0 -110px;}
+#afreecatv_player .stargift_invideo .balloon.case4 { background-position: 0 -165px;}
+#afreecatv_player .stargift_invideo .balloon.case5 { background-position: 0 -220px;}
+#afreecatv_player .stargift_invideo.storytelling { padding-left: 165px; }
+#afreecatv_player .stargift_invideo.storytelling .balloon { top: auto; bottom: 0; left: 12px; background-image: none; width: 146.5px; height: auto; }
+#afreecatv_player .stargift_invideo.storytelling .balloon img { width: 100%; height: 100%;  }
+
+#afreecatv_player .video_main_thumbnail { display:none; position:absolute; left:0; top:0; right:0; bottom:0; z-index:19; background-size:100%; background-position: center; background-repeat:no-repeat;}
+#afreecatv_player .mobile_video_thumbnail { display:none; position:absolute; left:0; top:0; right:0; bottom:0; z-index:5; background-size:contain;; background-position: center; background-repeat:no-repeat; }
+
+#afreecatv_player .center_msg { position: absolute; z-index: 2; top: 50%; left: 0; right: 0; margin-top: -55px; text-align: center; }
+#afreecatv_player .center_msg span { padding: 13px 25px; font-size: 18px; color: #fff; border-radius: 22px; -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)"; filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=70); background: rgba(0,0,0,0.7);}
+
+#afreecatv_player .layer_bx {display:block;z-index:35;position:absolute;bottom:50px;right:18px;padding:10px 11px;line-height:140%;border:1px solid #000;color:#fff;background: rgba(0, 0, 0, .7); }
+
+#afreecatv_player .bg_dark {  position: absolute; bottom: 53px; }
+
+/* adballoon */
+#afreecatv_player .stargift_invideo.adballoon{padding-left:95px;/*padding-right:11px*/}
+#afreecatv_player .stargift_invideo.adballoon .adname{color:#27ffcf;font-weight:bold;display:inline-block;text-overflow: ellipsis; white-space: nowrap; overflow: hidden;max-width:124px}
+#afreecatv_player .stargift_invideo.adballoon .memo em{color:#27ffcf}
+#afreecatv_player .stargift_invideo.adballoon .balloon{background:url(../../../../res.afreecatv.com/images/afreecatv_player/adballoon.png) 0 0 no-repeat;width:84px;height:64px;top:-20px}
+#afreecatv_player .stargift_invideo.adballoon .balloon img{width:46px;height:46px;border-radius:5px;position:absolute;top:18px;left:19px}
+
+/* 동영상 선물 하기를 위한  미리보기 플레이어 카운트용 */
+.preview_mode #afreecatv_player,
+.preview_mode.mobile #afreecatv_player video { position: absolute !important; top: 0 !important; left: 0 !important; bottom: 0px !important; right: 0; margin: 0; max-height: none !important; width: 100%; height: 100%; }
+.preview_mode #afreecatv_player > *  {  display: none; }
+.preview_mode #afreecatv_player .watermark,
+.preview_mode #afreecatv_player .player_info .title,
+.preview_mode #afreecatv_player .player_ctrlBox { display: none !important; }
+.preview_mode #afreecatv_player .afreecatv_player_size ,
+.preview_mode #afreecatv_player .player_info ,
+.preview_mode #afreecatv_player .player_info .tuneout,
+.preview_mode #afreecatv_player #videoLayer { display: block !important; }
+.preview_mode #afreecatv_player .player_info { z-index: 39; top: 0; }
+#afreecatv_player .preview_play_cnt { display: none; position: absolute; z-index: 10; right: 10px; bottom: 10px; color: #007efe;  font-family: 'NG',AppleGothic,sans-serif; font-size: 16px; padding: 8px 10px; background-color: rgba(0,0,0,.7);}
+.preview_mode .preview_play_cnt ,
+.preview_mode #afreecatv_player .preview_play_cnt ,
+.preview_mode.mobile #afreecatv_player .center_btn ,
+.preview_mode.mobile #afreecatv_player .mobile_video_thumbnail ,
+.preview_mode.mobile #afreecatv_player video,
+.preview_mode.mobile #afreecatv_player #videoLayerCover { display: block; }
+.preview_mode.mobile #afreecatv_player { min-width: auto; }
+.preview_mode.mobile #afreecatv_player .preview_play_cnt { padding: 5px 10px;  font-size: 14px; color: #fff; opacity: 0.8; background: #4279ff; }
+.preview_mode.mobile #afreecatv_player .player_info { background: rgba(0,0,0,.3); }
+.preview_mode.mobile #afreecatv_player .tuneout { background-color: transparent; }
+.preview_mode.mobile #afreecatv_player .tuneout p {font-size: 13px; }
+.preview_mode.mobile #afreecatv_player .center_btn { background: none; }
+/*  모바일용 이미지 추가 */
+.preview_mode.mobile #afreecatv_player .center_btn .btn_cneter_play span,
+.preview_mode.mobile #afreecatv_player .center_btn .btn_cneter_pause span { background-image: url('../../../images/afreecatv_player/split_player_2x.png');
+    background-repeat: no-repeat; background-size: 500px 500px; }
+.preview_mode.mobile #afreecatv_player .center_btn .btn_cneter_play span { width: 40px; height: 50px; background-position: 0 0}
+.preview_mode.mobile #afreecatv_player .center_btn .btn_cneter_pause span { width: 40px; height: 50px; background-position: -40px 0; }
+
+
+.flashplayer_install {position: absolute; left:0; top:50%; width:100%; margin:-65px 0 0;}
+.flashplayer_install dl {}
+.flashplayer_install dt {padding:0 50px; color:#ccc; font-size:14px; text-align:center; line-height:1.5em;}
+.flashplayer_install dd {text-align:center; padding:20px 0 0;}
+.flashplayer_install dd a {display:inline-block; overflow:hidden; text-indent:-1111px; width:183px; height:50px;background:url('../../../images/flashplayer/btn_flashplayer.png') no-repeat 0 0;}
+.flashplayer_install em {font-weight:bold;}
+
+/* 2019-04-22 크롬 다운로드 유도 레이어 */
+.ui-pop.chrome_install {position:absolute; top:auto; left:auto; right:0; bottom:0; width:330px; padding:12px 0; color:#7e7e7e; text-align:center; font-family:"돋움";}
+.ui-pop.chrome_install .pop-body {padding:6px 20px 0}
+.ui-pop.chrome_install .pop-body:before {content:""; display:block; background:url("../../../images/webplayer/live/split_live.png") -999em -999em no-repeat; background-position:-186px -300px; width:39px; height:40px; margin:0 auto 16px;}
+.ui-pop.chrome_install strong {color:#525252; font-size:14px;}
+.ui-pop.chrome_install p {margin:12px 0 15px; font-size:12px;}
+.ui-pop.chrome_install .btn_download {display:block; background:#4096de; width:174px; height:27px; margin:0 auto; border:solid 1px #3889bf; color:#fff; line-height:27px; font-size:12px; font-weight:bold;}
+.ui-pop.chrome_install .chk-box {margin-top:12px; padding-right:15px; text-align:right;}
+.ui-pop.chrome_install .chk-box * {vertical-align:middle;}
+/* 크롬 다운로드 유도 레이어 */

@@ -1,0 +1,188 @@
+﻿@charset "utf-8";
+
+/* zh */
+body.zh_TW *{font-family:Arial,Tahoma, Helvetica,  "Microsoft JhengHei", sans-serif} /* 번체 */
+body.zh *, body.zh_CN *{font-family:Arial,Tahoma, Helvetica, "Microsoft Yahei","微软雅黑", STXihei, "华文细黑", sans-serif;} /* 간체 */
+body.zh_CN #header .user_area .btn_set1{  /* background: url("/images/afmain/img_main_zh.png") no-repeat scroll -235px -24px;*/border-bottom: 1px solid #ebebeb;height: 57px;overflow: hidden;padding-top: 4px;width: 170px;}
+body.zh_CN #header .menu_area .home_admin button {background: url("../../../images/afmain/img_main_zh.png") no-repeat scroll -328px 11px;display: block;height: 36px;width: 79px;}
+body.zh_CN #header .menu_bar li a{font-family:Tahoma, Helvetica, Arial, "Microsoft Yahei","微软雅黑", STXihei, "华文细黑", sans-serif}
+body.zh_CN #container .content_area .title, body.zh_CN #container .content_area .title a{font-weight:normal;font-family:microsoft yahei, simsun, aria}
+body.zh_TW .menu_list li.on a .arrow, body.zh_CN .menu_list li.on a .arrow, body.en_US .menu_list li a .arrow{display:none !important}
+body.zh_CN .sv_area .tab_list li{width:100px}
+body.zh_CN .cast_box .subject { font-weight: bold; }
+body.zh_TW .cast_box .subject { font-weight: bold; }
+
+
+/* en */
+body.en *, body.en_US *{font-family:Arial,Helvetica,verdana,sans-serif;letter-spacing:0}
+body.en_US #wrap .btn_area .btn_player_v a{padding-bottom:0}
+/*
+body.en_US #header .user_area .my_tlist li a.my_item{background-position:-584px -59px}
+body.en_US #header .user_area .my_tlist li a.my_balloon{background-position:-584px -83px}
+body.en_US #header .user_area .my_tlist li a.my_Hopeballoon{background-position:-584px -107px}
+body.en_US #header .user_area .my_tlist li a.my_ad{background-position:-584px -151px}
+body.en_US #header .user_area .my_tlist li a.my_message{background-position:-584px -128px}
+body.en_US #header .user_area .my_tlist li a.my_shopping{background-position:-584px -170px}
+body.en_US #header .user_area .my_tlist li a.my_ffom{background-position:-584px -192px}
+*/
+/*body.en_US #header .user_area .btn_set1{ background: url("/lang/images/web/player/img_en.png") no-repeat scroll 0 -24px;}*/
+body.en_US #header .menu_area .list_m li a{padding-right:5px}
+body.en_US #container .content_area .title, body.en_US  #container .content_area .title a, body.en_US #header .log_area .nickname, body.en_US #header .menu_bar li a{font-family:Arial,Helvetica,verdana,sans-serif;}
+body.en_US #footer .footer_inner .f_list li a{font-size:12px}
+body.en_US .sv_area .tab_list li{width:auto}
+body.en_US .sv_area .tab_list.short li{width:100px;}
+/*body.en_US .sv_area .btn_delete_all {background:url('/lang/images/web/player/img_en.png') no-repeat 0 -85px;}*/
+body.en_US .menu_list li a{height:auto}
+body.en_US .menu_list li a em{top:12px}
+body.en_US .menu_list li a{line-height:1.7em;margin-bottom:10px}
+/*body.en_US .category_area .inner{left:-10px !important;}*/
+body.en_US .menu_bar li a{letter-spacing:0 !important}
+body.en_US .sv_area .tab_list li a{letter-spacing:0;padding:0 20px}
+body.en_US .unit{display:none}
+
+.af_sectionTitle ,
+#staffPicksList h2 {  position: relative; margin-bottom:8px; color:#386cff; font-size:22px; }
+.af_sectionTitle:after ,
+#staffPicksList h2:after {content:""; display:block; clear:both;}
+.af_sectionTitle img ,
+#staffPicksList h2 img {float:left; width:34px; height:34px; margin-right:8px; border-radius:50%; vertical-align:middle;}
+.af_sectionTitle strong ,
+#staffPicksList h2 strong {margin-left:8px; color:#64656a; font-size:14px; font-weight:normal;}
+.af_sectionTitle a ,
+#staffPicksList h2 a {color:inherit; text-decoration:none;}
+.af_sectionTitle a:hover ,
+#staffPicksList h2 a:hover {color:#017fff;text-decoration:none;}
+.af_sectionTitle a.show_all ,
+#staffPicksList h2 a.show_all { position: absolute; top: 10px; right: 0; padding-right: 6px; font-size: 13px; color: #787878;}
+.af_sectionTitle a.show_all em,
+#staffPicksList h2 a.show_all em {display:inline-block; *display:inline; zoom:1; background:url('../../../images/afmain/img_main.png') -516px -83px no-repeat; width:2px; height:3px; margin-left:4px; vertical-align:3px;}
+h2.staffFix_tit strong {margin-left:8px; color:#64656a; font-size:14px; font-weight:normal;}
+
+.staffFix .listarea ul {margin:0 0 0}
+.staffFix .listarea ul li {padding:0;height:250px}
+.staffFix .bx-controls {position:absolute; top:-39px; right:0; zoom:1;}
+.staffFix .bx-controls:after {content:""; display:block; clear:both;}
+.staffFix .bx-controls a {float:left; background:url('../../../images/afmain/img_main.png') no-repeat}
+.staffFix .bx-controls a.bx-prev {width:27px; height:27px; margin-right:-1px; background-position:-17px -165px; font:0/0 a;}
+.staffFix .bx-controls a.bx-next {width:27px; height:27px; background-position:-43px -165px; font:0/0 a;}
+
+
+body.en_US .cast_box .views span.zh_CN, body.en_US .cast_box .viewer span{margin-left:3px}
+/*body.en_US .cast_delete span{background:url('/lang/images/web/main/img_fav_del.png') no-repeat;width:102px}*/
+body.en_US #listWrap #header h1 .vod{letter-spacing:0 !important}
+body.en_US .cast_box .subject { font-weight: bold; }
+body.en_US #wrap .btn_area .btn_studio{font-size:19px;background-position:0 15px}
+
+/* 2017-07-07 추가 */
+body.en_US .sv_area .btn_delete2 {width:auto; padding-left:7px; padding-right:7px;}
+body.en_US .sv_area .laterwatch_nolist_allim {right:280px; top:4px;}
+body.en_US .laterwatch_nolist_allim .em1 {margin-top:-2px;}
+
+
+/* ja */
+body.ja_JP .menu_list li a .arrow{display:none}
+/*html[lang="ja"] #listWrap .category_area .inner{left:-13px}
+html[lang="ja"] #listWrap .fix_m{background-position:15px bottom}
+html[lang="ja"] #listWrap .menu_list li.line_up {background-position:15px top}*/
+body.ja_JP #header .user_area .my_tlist li a{padding-top:0}
+
+/* th */
+body.th_TH  #header .user_area .btn_set2 .myinfo{padding: 0 0 0 8px}
+body.th_TH #header .user_area .btn_set2 .logout{padding:0 8px 0 11px}
+body.th_TH #header .user_area .btn_set1 a em,
+body.th_TH #header .user_area .btn_set1 a span{background-position:right 6px}
+body.th_TH .menu_list li a .arrow{display:none}
+html[lang="en"] #listWrap .menu_list li a em,
+html[lang="th"] #listWrap .menu_list li a em {left:30px}
+html[lang="en"] #listWrap .menu_list li a,
+html[lang="th"] #listWrap .menu_list li a {padding-left:60px}
+
+
+
+/* 해외 공통영역 */
+html[lang="en"] #listWrap #header ,
+html[lang="zh"] #listWrap #header ,
+html[lang="ja"] #listWrap #header ,
+html[lang="th"] #listWrap #header { height: 66px !important; }
+
+html[lang="en"] #listWrap #container ,
+html[lang="zh"] #listWrap #container ,
+html[lang="ja"] #listWrap #container ,
+html[lang="th"] #listWrap #container { padding: 67px 0 108px !important; }
+
+html[lang="en"] #listWrap .category_area ,
+html[lang="zh"] #listWrap .category_area ,
+html[lang="ja"] #listWrap .category_area ,
+html[lang="th"] #listWrap .category_area { margin-top: 67px !important; }
+
+html[lang="en"] #listWrap .menu_bar ,
+html[lang="zh"] #listWrap .menu_bar ,
+html[lang="ja"] #listWrap .menu_bar ,
+html[lang="th"] #listWrap .menu_bar ,
+html[lang="en"] #wrap .btn_area .tooltip ,
+html[lang="zh"] #wrap .btn_area .tooltip ,
+html[lang="ja"] #wrap .btn_area .tooltip ,
+html[lang="th"] #wrap .btn_area .tooltip { display: none !important; }
+
+html[lang="en"] #listWrap #header .btn_menu ,
+html[lang="zh"] #listWrap #header .btn_menu ,
+html[lang="ja"] #listWrap #header .btn_menu ,
+html[lang="th"] #listWrap #header .btn_menu {display:block; z-index: 21; top: 6px !important; }
+
+html[lang="en"] #listWrap #header .btn_menu a,
+html[lang="zh"] #listWrap #header .btn_menu a,
+html[lang="ja"] #listWrap #header .btn_menu a,
+html[lang="th"] #listWrap #header .btn_menu a{ height: 53px; }
+
+html[lang="en"] #listWrap #header .btn_menu a span ,
+html[lang="zh"] #listWrap #header .btn_menu a span ,
+html[lang="ja"] #listWrap #header .btn_menu a span ,
+html[lang="th"] #listWrap #header .btn_menu a span { top: 18px; }
+
+html[lang="en"] #listWrap #header .menu_area ,
+html[lang="zh"] #listWrap #header .menu_area ,
+html[lang="ja"] #listWrap #header .menu_area ,
+html[lang="th"] #listWrap #header .menu_area { top: 59px; width:409px; }
+
+html[lang="en"] #listWrap #header .log_area ,
+html[lang="zh"] #listWrap #header .log_area ,
+html[lang="ja"] #listWrap #header .log_area ,
+html[lang="th"] #listWrap #header .log_area { padding-right: 61px; }
+
+html[lang="en"] #listWrap #header .log_area .ghelp ,
+html[lang="zh"] #listWrap #header .log_area .ghelp ,
+html[lang="ja"] #listWrap #header .log_area .ghelp ,
+html[lang="th"] #listWrap #header .log_area .ghelp {display:block; float:left; position:relative; height:35px; margin-right:7px; color:#666; line-height:35px; font-size:14px;}
+
+html[lang="en"] #listWrap #header .log_area .join_area .ghelp ,
+html[lang="zh"] #listWrap #header .log_area .join_area .ghelp ,
+html[lang="ja"] #listWrap #header .log_area .join_area .ghelp ,
+html[lang="th"] #listWrap #header .log_area .join_area .ghelp {position: relative;float:none;display:inline-block;margin:0 8px 0 0;}
+#header .join_area a.ghelp {padding-right:10px;margin-right:8px;}
+#header .join_area a.ghelp:after {content:""; position:absolute; top:50%; right:0; background:#dadadb; width:1px; height:16px; margin-top:-8px;}
+
+
+html[lang="en"] .gnbBar #header ,
+html[lang="zh"] .gnbBar #header ,
+html[lang="ja"] .gnbBar #header ,
+html[lang="th"] .gnbBar #header {min-width:1200px !important}
+
+html[lang="en"] #listWrap #header .user_area,
+html[lang="zh"] #listWrap #header .user_area,
+html[lang="ja"] #listWrap #header .user_area,
+html[lang="th"] #listWrap #header .user_area {right:46px}
+
+/*html[lang="zh"] #listWrap .category_area .inner .scrollarea {top:119px}
+html[lang="zh"] #listWrap .log_scroll .inner .scrollarea {top:85px}*/
+/* html[lang="zh"] #listWrap .vod_scroll .inner .scrollarea {top:290px} */
+
+html[lang="en"] #listWrap #footer,
+html[lang="zh"] #listWrap #footer,
+html[lang="ja"] #listWrap #footer,
+html[lang="th"] #listWrap #footer {padding-top:25px;height:82px;}
+
+.ui-pop.pop_chnoti{font-size:18px;margin:-101px 0 0 -210px;top:230px}
+#layer_zh_info .dim{position:fixed;top:0;left:0;width:100%;height:100%;background:#000;opacity:.5;filter:alpha(opacity=50);z-index:1600}
+#layer_zh_info .pop-body{text-align:center}
+#layer_zh_info .close_ck{color:#747474;font-size:16px;margin-top:16px;text-align:left}
+#layer_zh_info .close_ck input{margin-right:6px}
