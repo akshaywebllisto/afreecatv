@@ -34,12 +34,12 @@
 	<link rel="stylesheet" href="res-cf.afreecatv.com/css/global/afmain/jquery.mCustomScrollbar.css"/>
 	<script type="text/javascript" src="res-cf.afreecatv.com/script/common/jquery.js"></script>
 	<script type="text/javascript" src="res-cf.afreecatv.com/script/afmain/jquery.mousewheel.min.js"></script>
-	<!--<script type="text/javascript" src="//res-cf.afreecatv.com/script/afmain/mousewheelStopPropagation.min.js"></script> //LNB 개편으로 제외-->
+	<!--<script type="text/javascript" src="res-cf.afreecatv.com/script/afmain/mousewheelStopPropagation.min.js"></script> //LNB 개편으로 제외-->
 	<script type="text/javascript" src="res-cf.afreecatv.com/script/new_main/_config.js"></script>
 	<script type="text/javascript" src="res-cf.afreecatv.com/script/new_main/afreecacook.js"></script>
 	<script type="text/javascript" src="res-cf.afreecatv.com/main/main_category_en_US.js"></script>
 	<!-- 국내와 분기하기위에 상단에 선언 <script type="text/javascript" src="//live.afreecatv.com/api/get_broadlist_main_info.php?type=script"></script> -->
-	<script type="text/javascript" src="http://live.afreecatv.com/api/get_broadlist_main_info.php?type=script"></script>
+	<!-- <script type="text/javascript" src="http://live.afreecatv.com/api/get_broadlist_main_info.php?type=script"></script> -->
 	<script type="text/javascript">window.szLogAction = 'MAIN_LIST';</script>
 	<script type="text/javascript" src="res-cf.afreecatv.com/script/new_main/common.js" charset="euc-kr"></script>
 	<script type="text/javascript" src="res-cf.afreecatv.com/script/custom_scroll.js"></script>
@@ -52,9 +52,9 @@
 	<!--메인 화면 구성을 하는 모든 스크립트를 노출 시키는 스크립트를 모아놓은 API / 파라미터로 서비스별 최적화-->
 	<script type="text/javascript" src="http://static-cf.afreecatv.com/asset/service/get_service_script.php?lang=en_US"></script>
 	<!--
-	<script type="text/javascript" src="//static-cf.afreecatv.com/asset/service/gnb/gnb_common.js"></script>
-	<script type="text/javascript" src="//static-cf.afreecatv.com/asset/service/gnb/gnb.js"></script>
-	<script type="text/javascript" src="//static-cf.afreecatv.com/asset/service/footer/footer.js"></script>-->
+	<script type="text/javascript" src="static-cf.afreecatv.com/asset/service/gnb/gnb_common.js"></script>
+	<script type="text/javascript" src="static-cf.afreecatv.com/asset/service/gnb/gnb.js"></script>
+	<script type="text/javascript" src="static-cf.afreecatv.com/asset/service/footer/footer.js"></script>-->
 	<script type="text/javascript" src="static-cf.afreecatv.com/asset/service/common/common_analysis.js"></script>
 	<script type="text/javascript" src="res-cf.afreecatv.com/script/statistics/afreeca.front.statistics.js"></script>
 	<script type="text/javascript">
@@ -93,19 +93,19 @@
 			}
 			else
 			{
-				$('h1#logo').html('<a href="//www.afreecatv.com"><img src="//res-cf.afreecatv.com/images/afmain/logo_main.gif" width="210" height="65" title="afreecaTV">');
+				$('h1#logo').html('<a href="//www.afreecatv.com"><img src="res-cf.afreecatv.com/images/afmain/logo_main.gif" width="210" height="65" title="afreecaTV">');
 			}
 		}
 		else
 		{
-			$('h1#logo').html('<a href="//www.afreecatv.com"><img src="//res-cf.afreecatv.com/images/afmain/logo_main.gif" width="210" height="65" title="afreecaTV">');
+			$('h1#logo').html('<a href="//www.afreecatv.com"><img src="res-cf.afreecatv.com/images/afmain/logo_main.gif" width="210" height="65" title="afreecaTV">');
 		}
 	}
 
     try
     {
         var importAAB = document.createElement('script');
-        importAAB.src = '../res.afreecatv.com/script/ad/af_ad_block.js';
+        importAAB.src = 'res.afreecatv.com/script/ad/af_ad_block.js';
         document.head.appendChild(importAAB);
     } catch(e) {}
 	</script>
@@ -390,20 +390,80 @@
 			<!-- //핫이슈 -->
 
 			<!-- 글로벌용 라이브 섹션 -->
-			<div id="liveSectionList" style="display:none;"></div>
+			<!-- <div id="liveSectionList" style="display:none;"></div> -->
+			<div id="liveSectionList" style="">
+   <div>
+      <h2 class="af_sectionTitle"><a href="//www.afreecatv.com/?hash=livesection"><img src="//admin-cf.img.afreecatv.com/curation/5747598bea1e66b2f.jpg" style="width:34px;height:34px;" alt="">Live Now</a><strong>Recommended Streamers</strong><a href="//www.afreecatv.com/?hash=livesection" class="show_all">Show All<em></em></a></h2>
+      <div class="listarea">
+         <ul class="fix_list">
+            <li>
+               <div class="cast_box"><a href="http://play.afreecatv.com/afreecapd/219751515" onclick="javascript: oAnalysisUtil.sendLiveInflowLog('afreecapd',219751515, ['main','curation']);" class="box_link"><span class="grbox"></span><span class="thumb"><img src="//liveimg.afreecatv.com/219751515_480x270.gif?26290853" onerror="this.src='//res.afreecatv.com/images/afmain/img_thumb_v.gif'" title=""></span><span class="live_type">LIVE</span><span class="info"><em class="grade">8000K</em><span class="time">2019-12-27 16:30:00 Start Time</span></span><span class="subject"> NICE지키미와 함께하는 2019 아프리카TV BJ대상</span><span class="viewer"><em></em>19,743 Viewers</span><span class="count"><em class="pc"></em>9,032<em class="mobile"></em>10,711</span></a><a href="javascript:;" user_id="afreecapd" class="nick">BJ대상1</a><span class="laterwatch"><a href="javascript:;" id="laterview_push" data-vod-type="LIVE" data-broad-no="219751515" class="icon"><span class="btn">추가하기</span><em class="ttip">Watch Later<span class="arr"></span></em></a></span></div>
+            </li>
+            <li>
+               <div class="cast_box"><a href="http://play.afreecatv.com/parang1995/219756093" onclick="javascript: oAnalysisUtil.sendLiveInflowLog('parang1995',219756093, ['main','curation']);" class="box_link"><span class="grbox"></span><span class="thumb"><img src="//liveimg.afreecatv.com/219756093_480x270.gif?26290853" onerror="this.src='//res.afreecatv.com/images/afmain/img_thumb_v.gif'" title=""></span><span class="live_type">LIVE</span><span class="info"><em class="grade">2000K</em><span class="time">2019-12-27 20:03:44 Start Time</span></span><span class="subject">베트남 신입)나트랑 114두산 온몸이 불덩이네요 ㅠ 일본x</span><span class="viewer"><em></em>466 Viewers</span><span class="count"><em class="pc"></em>275<em class="mobile"></em>191</span></a><a href="javascript:;" user_id="parang1995" class="nick">우니쿤</a><span class="laterwatch"><a href="javascript:;" id="laterview_push" data-vod-type="LIVE" data-broad-no="219756093" class="icon"><span class="btn">추가하기</span><em class="ttip">Watch Later<span class="arr"></span></em></a></span></div>
+            </li>
+            <li>
+               <div class="cast_box"><a href="http://play.afreecatv.com/shost55/219752223" onclick="javascript: oAnalysisUtil.sendLiveInflowLog('shost55',219752223, ['main','curation']);" class="box_link"><span class="grbox"></span><span class="thumb"><img src="//liveimg.afreecatv.com/219752223_480x270.gif?26290853" onerror="this.src='//res.afreecatv.com/images/afmain/img_thumb_v.gif'" title=""></span><span class="live_type">LIVE</span><span class="info"><em class="grade">4000K</em><span class="time">2019-12-27 17:13:43 Start Time</span></span><span class="subject">베트남)호치민 중국인거리 문화탐방  시키면한다 미션주세요 태국x</span><span class="viewer"><em></em>149 Viewers</span><span class="count"><em class="pc"></em>100<em class="mobile"></em>49</span></a><a href="javascript:;" user_id="shost55" class="nick">베트남서칸</a><span class="laterwatch"><a href="javascript:;" id="laterview_push" data-vod-type="LIVE" data-broad-no="219752223" class="icon"><span class="btn">추가하기</span><em class="ttip">Watch Later<span class="arr"></span></em></a></span></div>
+            </li>
+            <li>
+               <div class="cast_box"><a href="http://play.afreecatv.com/sunnnnnnnnnn/219755658" onclick="javascript: oAnalysisUtil.sendLiveInflowLog('sunnnnnnnnnn',219755658, ['main','curation']);" class="box_link"><span class="grbox"></span><span class="thumb"><img src="//liveimg.afreecatv.com/219755658_480x270.gif?26290853" onerror="this.src='//res.afreecatv.com/images/afmain/img_thumb_v.gif'" title=""></span><span class="live_type">LIVE</span><span class="info"><em class="grade">2000K</em><span class="time">2019-12-27 19:51:08 Start Time</span></span><span class="subject">베트남 부회장님 장가보내기 프로잭트. 태국x</span><span class="viewer"><em></em>123 Viewers</span><span class="count"><em class="pc"></em>77<em class="mobile"></em>46</span></a><a href="javascript:;" user_id="sunnnnnnnnnn" class="nick">베트남썬이</a><span class="laterwatch"><a href="javascript:;" id="laterview_push" data-vod-type="LIVE" data-broad-no="219755658" class="icon"><span class="btn">추가하기</span><em class="ttip">Watch Later<span class="arr"></span></em></a></span></div>
+            </li>
+            <li>
+               <div class="cast_box"><a href="http://play.afreecatv.com/redinctv/219750749" onclick="javascript: oAnalysisUtil.sendLiveInflowLog('redinctv',219750749, ['main','curation']);" class="box_link"><span class="grbox"></span><span class="thumb"><img src="//liveimg.afreecatv.com/219750749_480x270.gif?26290853" onerror="this.src='//res.afreecatv.com/images/afmain/img_thumb_v.gif'" title=""></span><span class="live_type">LIVE</span><span class="info"><em class="grade">8000K</em><span class="time">2019-12-27 15:42:03 Start Time</span></span><span class="subject">[신입] 동시송출중 솔로 랭커 배틀그라운드 배그 PUBG REDincTV</span><span class="viewer"><em></em>3 Viewers</span><span class="count"><em class="pc"></em>2<em class="mobile"></em>1</span></a><a href="javascript:;" user_id="redinctv" class="nick">redinctv</a><span class="laterwatch"><a href="javascript:;" id="laterview_push" data-vod-type="LIVE" data-broad-no="219750749" class="icon"><span class="btn">추가하기</span><em class="ttip">Watch Later<span class="arr"></span></em></a></span></div>
+            </li>
+            <li>
+               <div class="cast_box"><a href="http://play.afreecatv.com/allthekpop/219585489" onclick="javascript: oAnalysisUtil.sendLiveInflowLog('allthekpop',219585489, ['main','curation']);" class="box_link"><span class="grbox"></span><span class="thumb"><img src="//liveimg.afreecatv.com/219585489_480x270.gif?26290853" onerror="this.src='//res.afreecatv.com/images/afmain/img_thumb_v.gif'" title=""></span><span class="live_type">LIVE</span><span class="info"><em class="grade">5000K</em><span class="time">2019-12-20 08:01:09 Start Time</span></span><span class="subject">ALL THE K-POP</span><span class="viewer"><em></em>2 Viewers</span><span class="count"><em class="pc"></em>1<em class="mobile"></em>1</span></a><a href="javascript:;" user_id="allthekpop" class="nick">올더케이팝</a><span class="laterwatch"><a href="javascript:;" id="laterview_push" data-vod-type="LIVE" data-broad-no="219585489" class="icon"><span class="btn">추가하기</span><em class="ttip">Watch Later<span class="arr"></span></em></a></span></div>
+            </li>
+            <li>
+               <div class="cast_box"><a href="http://play.afreecatv.com/jmlozach/219742992" onclick="javascript: oAnalysisUtil.sendLiveInflowLog('jmlozach',219742992, ['main','curation']);" class="box_link"><span class="grbox"></span><span class="thumb"><img src="//liveimg.afreecatv.com/219742992_480x270.gif?26290853" onerror="this.src='//res.afreecatv.com/images/afmain/img_thumb_v.gif'" title=""></span><span class="live_type">LIVE</span><span class="info"><em class="grade">2500K</em><span class="time">2019-12-27 01:34:36 Start Time</span></span><span class="subject">70 Spirit</span><span class="viewer"><em></em>1 Viewers</span><span class="count"><em class="pc"></em>0<em class="mobile"></em>1</span></a><a href="javascript:;" user_id="jmlozach" class="nick">jmlozach</a><span class="laterwatch"><a href="javascript:;" id="laterview_push" data-vod-type="LIVE" data-broad-no="219742992" class="icon"><span class="btn">추가하기</span><em class="ttip">Watch Later<span class="arr"></span></em></a></span></div>
+            </li>
+            <li>
+               <div class="cast_box"><a href="http://play.afreecatv.com/lex111/219757873" onclick="javascript: oAnalysisUtil.sendLiveInflowLog('lex111',219757873, ['main','curation']);" class="box_link"><span class="grbox"></span><span class="thumb"><img src="//liveimg.afreecatv.com/219757873_480x270.gif?26290853" onerror="this.src='//res.afreecatv.com/images/afmain/img_thumb_v.gif'" title=""></span><span class="live_type">LIVE</span><span class="info"><em class="grade">2500K</em><span class="time">2019-12-27 21:02:46 Start Time</span></span><span class="subject">ALEx now STREAMING! HELLO FROM RUSSIA! WELCOME!</span><span class="viewer"><em></em>1 Viewers</span><span class="count"><em class="pc"></em>0<em class="mobile"></em>1</span></a><a href="javascript:;" user_id="lex111" class="nick">lex111</a><span class="laterwatch"><a href="javascript:;" id="laterview_push" data-vod-type="LIVE" data-broad-no="219757873" class="icon"><span class="btn">추가하기</span><em class="ttip">Watch Later<span class="arr"></span></em></a></span></div>
+            </li>
+            <li>
+               <div class="cast_box"><a href="http://play.afreecatv.com/topdj1/219757774" onclick="javascript: oAnalysisUtil.sendLiveInflowLog('topdj1',219757774, ['main','curation']);" class="box_link"><span class="grbox"></span><span class="thumb"><img src="//liveimg.afreecatv.com/219757774_480x270.gif?26290853" onerror="this.src='//res.afreecatv.com/images/afmain/img_thumb_v.gif'" title=""></span><span class="live_type">LIVE</span><span class="info"><em class="grade">500K</em><span class="time">2019-12-27 21:00:33 Start Time</span></span><span class="subject">필리핀꾸야 필리핀에 대해 궁금한점 다오세용..ㅋㅋ</span><span class="viewer"><em></em>1 Viewers</span><span class="count"><em class="pc"></em>0<em class="mobile"></em>1</span></a><a href="javascript:;" user_id="topdj1" class="nick">필리핀꾸야</a><span class="laterwatch"><a href="javascript:;" id="laterview_push" data-vod-type="LIVE" data-broad-no="219757774" class="icon"><span class="btn">추가하기</span><em class="ttip">Watch Later<span class="arr"></span></em></a></span></div>
+            </li>
+            <li>
+               <div class="cast_box"><a href="http://play.afreecatv.com/hits1radio/219736783" onclick="javascript: oAnalysisUtil.sendLiveInflowLog('hits1radio',219736783, ['main','curation']);" class="box_link"><span class="grbox"></span><span class="thumb"><img src="//liveimg.afreecatv.com/219736783_480x270.gif?26290853" onerror="this.src='//res.afreecatv.com/images/afmain/img_thumb_v.gif'" title=""></span><span class="live_type">LIVE</span><span class="info"><em class="grade">192K</em><span class="time">2019-12-26 21:27:19 Start Time</span></span><span class="subject">Hits1 radio - number 1 on the hits !</span><span class="viewer"><em></em>1 Viewers</span><span class="count"><em class="pc"></em>0<em class="mobile"></em>1</span></a><a href="javascript:;" user_id="hits1radio" class="nick">hits1radio</a><span class="laterwatch"><a href="javascript:;" id="laterview_push" data-vod-type="LIVE" data-broad-no="219736783" class="icon"><span class="btn">추가하기</span><em class="ttip">Watch Later<span class="arr"></span></em></a></span></div>
+            </li>
+            <li>
+               <div class="cast_box"><a href="http://play.afreecatv.com/draxlar/219748844" onclick="javascript: oAnalysisUtil.sendLiveInflowLog('draxlar',219748844, ['main','curation']);" class="box_link"><span class="grbox"></span><span class="thumb"><img src="//liveimg.afreecatv.com/219748844_480x270.gif?26290853" onerror="this.src='//res.afreecatv.com/images/afmain/img_thumb_v.gif'" title=""></span><span class="live_type">LIVE</span><span class="info"><em class="grade">6000K</em><span class="time">2019-12-27 13:29:19 Start Time</span></span><span class="subject">Draxlar''s AfreecaTV Stream</span><span class="viewer"><em></em>1 Viewers</span><span class="count"><em class="pc"></em>0<em class="mobile"></em>1</span></a><a href="javascript:;" user_id="draxlar" class="nick">draxlar</a><span class="laterwatch"><a href="javascript:;" id="laterview_push" data-vod-type="LIVE" data-broad-no="219748844" class="icon"><span class="btn">추가하기</span><em class="ttip">Watch Later<span class="arr"></span></em></a></span></div>
+            </li>
+            <li>
+               <div class="cast_box"><a href="http://play.afreecatv.com/bitcointradi/219751691" onclick="javascript: oAnalysisUtil.sendLiveInflowLog('bitcointradi',219751691, ['main','curation']);" class="box_link"><span class="grbox"></span><span class="thumb"><img src="//liveimg.afreecatv.com/219751691_480x270.gif?26290853" onerror="this.src='//res.afreecatv.com/images/afmain/img_thumb_v.gif'" title=""></span><span class="live_type">LIVE</span><span class="info"><em class="grade">2000K</em><span class="time">2019-12-27 16:41:19 Start Time</span></span><span class="subject">Bitcoin Trading Informant Live Trading Infos 24/7</span><span class="viewer"><em></em>0 Viewers</span><span class="count"><em class="pc"></em>0<em class="mobile"></em>0</span></a><a href="javascript:;" user_id="bitcointradi" class="nick">bitcointradi</a><span class="laterwatch"><a href="javascript:;" id="laterview_push" data-vod-type="LIVE" data-broad-no="219751691" class="icon"><span class="btn">추가하기</span><em class="ttip">Watch Later<span class="arr"></span></em></a></span></div>
+            </li>
+            <li>
+               <div class="cast_box"><a href="http://play.afreecatv.com/619trading/219697831" onclick="javascript: oAnalysisUtil.sendLiveInflowLog('619trading',219697831, ['main','curation']);" class="box_link"><span class="grbox"></span><span class="thumb"><img src="//liveimg.afreecatv.com/219697831_480x270.gif?26290853" onerror="this.src='//res.afreecatv.com/images/afmain/img_thumb_v.gif'" title=""></span><span class="live_type">LIVE</span><span class="info"><em class="grade">3000K</em><span class="time">2019-12-25 01:15:13 Start Time</span></span><span class="subject">Portal BOT  Find us on discord :https://discord.gg/Uea648</span><span class="viewer"><em></em>0 Viewers</span><span class="count"><em class="pc"></em>0<em class="mobile"></em>0</span></a><a href="javascript:;" user_id="619trading" class="nick">619trading</a><span class="laterwatch"><a href="javascript:;" id="laterview_push" data-vod-type="LIVE" data-broad-no="219697831" class="icon"><span class="btn">추가하기</span><em class="ttip">Watch Later<span class="arr"></span></em></a></span></div>
+            </li>
+            <li>
+               <div class="cast_box"><a href="http://play.afreecatv.com/profitway/219737513" onclick="javascript: oAnalysisUtil.sendLiveInflowLog('profitway',219737513, ['main','curation']);" class="box_link"><span class="grbox"></span><span class="thumb"><img src="//liveimg.afreecatv.com/219737513_480x270.gif?26290853" onerror="this.src='//res.afreecatv.com/images/afmain/img_thumb_v.gif'" title=""></span><span class="live_type">LIVE</span><span class="info"><em class="grade">3650K</em><span class="time">2019-12-26 21:51:21 Start Time</span></span><span class="subject">profitway''s AfreecaTV Stream</span><span class="viewer"><em></em>0 Viewers</span><span class="count"><em class="pc"></em>0<em class="mobile"></em>0</span></a><a href="javascript:;" user_id="profitway" class="nick">profitway</a><span class="laterwatch"><a href="javascript:;" id="laterview_push" data-vod-type="LIVE" data-broad-no="219737513" class="icon"><span class="btn">추가하기</span><em class="ttip">Watch Later<span class="arr"></span></em></a></span></div>
+            </li>
+            <li>
+               <div class="cast_box"><a href="http://play.afreecatv.com/3rdeyemusic/219585453" onclick="javascript: oAnalysisUtil.sendLiveInflowLog('3rdeyemusic',219585453, ['main','curation']);" class="box_link"><span class="grbox"></span><span class="thumb"><img src="//liveimg.afreecatv.com/219585453_480x270.gif?26290853" onerror="this.src='//res.afreecatv.com/images/afmain/img_thumb_v.gif'" title=""></span><span class="live_type">LIVE</span><span class="info"><em class="grade">2500K</em><span class="time">2019-12-20 08:01:05 Start Time</span></span><span class="subject">3rdeyemusic''s AfreecaTV Stream</span><span class="viewer"><em></em>0 Viewers</span><span class="count"><em class="pc"></em>0<em class="mobile"></em>0</span></a><a href="javascript:;" user_id="3rdeyemusic" class="nick">3rdeyemusic</a><span class="laterwatch"><a href="javascript:;" id="laterview_push" data-vod-type="LIVE" data-broad-no="219585453" class="icon"><span class="btn">추가하기</span><em class="ttip">Watch Later<span class="arr"></span></em></a></span></div>
+            </li>
+            <li>
+               <div class="cast_box"><a href="http://play.afreecatv.com/20ld4dis/219755184" onclick="javascript: oAnalysisUtil.sendLiveInflowLog('20ld4dis',219755184, ['main','curation']);" class="box_link"><span class="grbox"></span><span class="thumb"><img src="//liveimg.afreecatv.com/219755184_480x270.gif?26290853" onerror="this.src='//res.afreecatv.com/images/afmain/img_thumb_v.gif'" title=""></span><span class="live_type">LIVE</span><span class="info"><em class="grade">6000K</em><span class="time">2019-12-27 19:30:27 Start Time</span></span><span class="subject">twitch.tv/20ld</span><span class="viewer"><em></em>0 Viewers</span><span class="count"><em class="pc"></em>0<em class="mobile"></em>0</span></a><a href="javascript:;" user_id="20ld4dis" class="nick">20ld</a><span class="laterwatch"><a href="javascript:;" id="laterview_push" data-vod-type="LIVE" data-broad-no="219755184" class="icon"><span class="btn">추가하기</span><em class="ttip">Watch Later<span class="arr"></span></em></a></span></div>
+            </li>
+            <li>
+               <div class="cast_box"><a href="http://play.afreecatv.com/neldoreth/219655128" onclick="javascript: oAnalysisUtil.sendLiveInflowLog('neldoreth',219655128, ['main','curation']);" class="box_link"><span class="grbox"></span><span class="thumb"><img src="//liveimg.afreecatv.com/219655128_480x270.gif?26290853" onerror="this.src='//res.afreecatv.com/images/afmain/img_thumb_v.gif'" title=""></span><span class="live_type">LIVE</span><span class="info"><em class="grade">2000K</em><span class="time">2019-12-23 07:38:56 Start Time</span></span><span class="subject">Neldoreth''s Synthwave / Retrowave Music Stream</span><span class="viewer"><em></em>0 Viewers</span><span class="count"><em class="pc"></em>0<em class="mobile"></em>0</span></a><a href="javascript:;" user_id="neldoreth" class="nick">neldoreth</a><span class="laterwatch"><a href="javascript:;" id="laterview_push" data-vod-type="LIVE" data-broad-no="219655128" class="icon"><span class="btn">추가하기</span><em class="ttip">Watch Later<span class="arr"></span></em></a></span></div>
+            </li>
+         </ul>
+      </div>
+   </div>
+</div>
 			<!-- //글로벌용 라이브 섹션 -->
 
 			<!-- 글로벌용 배너 -->
-			<div id="GlobalBnrArea" class="global_banner" style="display:none;">
+	<!-- 		<div id="GlobalBnrArea" class="global_banner" style="display:none;">
 				<h2 class="blind">Banner Domain</h2>
 				<ul class="global_bannerslide" id="globalBnrSlide">	</ul>
 				<a href="javascript:;" class="btn_prev" id="btnPrevGlobal"><span>Previous</span></a>
 				<a href="javascript:;" class="btn_next" id="btnNextGlobal"><span>Next</span></a>
-			</div>
+			</div> -->
 			<!-- //글로벌용 배너 -->
 
 			<!-- 글로벌용 스태프 픽스 -->
-			<div id="staffPicksList" style="display:none;"></div>
+			<!-- <div id="staffPicksList" style="display:none;"></div> -->
 			<!-- //글로벌용 스태프 픽스 -->
 
 			<!--<h2 class="title"><a href="javascript:;" id="titleToggle" class="on">전체<em></em></a></h2>		-->
@@ -465,7 +525,7 @@
 			<!-- 게임배너 -->
 			<div class="banner" id="div_game_banner" style="display:none;"></div>
 			<!-- //게임배너 -->
-			<div class="loading">Loading...</div>
+			<!-- <div class="loading">Loading...</div> -->
 			<!-- 방송없을시 -->
 			<div class="nt_area" style="display:none">
 				<span id ="ic_nocast" name="message" style="display:none">

@@ -1,7 +1,7 @@
 //pm시풀기
 if( document.location.protocol!="https:" )
 {
-    document.writeln('<script type="text/javascript"src="//static.file.afreecatv.com/pm/afreeca_full_pm.js"></script>');
+    document.writeln('<script type="text/javascript"src="./static.file.afreecatv.com/pm/afreeca_full_pm.js"></script>');
 }
 
 var bLayerPopUp = false;		// 페이어 팝업 출력 유무

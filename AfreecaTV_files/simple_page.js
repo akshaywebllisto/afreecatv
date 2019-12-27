@@ -1,1 +1,0 @@
-var oSimplePage = {"main":{"top_banner":1,"ad_banner":1,"hot_issue":1,"notice":1},"fav":{"top_menu":1,"fav_bbs":1,"fav_vod":1,"recommend_live":1,"fav_total":1},"search":{"total_result":1,"vod_result":1,"bj_result":1,"relate_word":1,"recommend_live":1,"recommend_vod":1,"relate_bj":1,"recommend_word":1,"rank_word":1},"is_simple":"0"}
